@@ -1,0 +1,165 @@
+Prompt:
+
+/EA-plan I want to build a YouTube thumbnail generator. I want to be able to bring in images (whether it's images of myself or other people or icons) and it creates a thumbail of that image. It recreates it. It keeps the same consistency. We want to make sure that we're using Nano Banana Pro and I want you to go and search the web to see what other YouTube thumbnail generators have (not too much, maybe like three websites) and also implement those common features across the board.
+
+then I ran /ea-handoff
+
+Here is the output as of 2026-06-07:
+
+(base)  ✝  Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow   main  conda deactivate
+ ✝  Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow   main  claude
+ ▐▛███▜▌   Claude Code v2.1.161
+▝▜█████▛▘  Opus 4.8 · Claude Pro
+  ▘▘ ▝▝    ~/…/My Drive/AI-Early-Adopters/PROJECTS/Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow
+
+   Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ Try "how does <filepath> work?"                         
+ *  History restored ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ? for shortcuts · ← for agents
+(base)  ✝  Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow   main  
+ *  History restored 
+
+(base)  ✝  Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow   main  conda deactivate
+ ✝  Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow   main  clear
+ ✝  Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow   main  claude
+ ▐▛███▜▌   Claude Code v2.1.162
+▝▜█████▛▘  Opus 4.8 · Claude Pro
+  ▘▘ ▝▝    ~/…/My Drive/AI-Early-Adopters/PROJECTS/Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow
+
+❯ /EA-plan I want to build a YouTube thumbnail generator. I want to be able to bring in images (whether it's images of myself or other people or icons) and it creates a     
+ ▐▛███▜▌   Claude Code v2.1.162
+▝▜█████▛▘  Opus 4.8 · Claude Pro
+  ▘▘ ▝▝    ~/…/My Drive/AI-Early-Adopters/PROJECTS/Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundamentals-03-core-workflow
+
+ ▎ Opus 4.8 is here! Now defaults to high effort · /effort xhigh for your hardest tasks
+
+❯ /EA-plan I want to build a YouTube thumbnail generator. I want to be able to bring in images (whether it's images of myself or other people or icons) and it creates a     
+thumbail of that image. It recreates it. It keeps the same consistency. We want to make sure that we're using Nano Banana Pro and I want you to go and search the web to see 
+what other YouTube thumbnail generators have (not too much, maybe like three websites) and also implement those common features across the board.                            
+
+⏺ I'll follow the EA-plan workflow. Let me start by setting up folders and researching existing thumbnail generators.
+
+⏺ Bash(mkdir -p specs/todo specs/done && echo "Folders ready")
+  ⎿  Folders ready
+
+⏺ Now let me research existing YouTube thumbnail generators and Nano Banana Pro capabilities.
+
+⏺ Web Search("best AI YouTube thumbnail generator features 2026")
+  ⎿  Did 1 search in 9s
+
+⏺ Web Search("Nano Banana Pro API image generation Gemini 3 Pro Image capabilities")
+  ⎿  Did 1 search in 9s
+
+⏺ Let me get the specific API details for Nano Banana Pro and look at a couple of the thumbnail tools more closely.
+
+⏺ Fetch(https://ai.google.dev/gemini-api/docs/image-generation)
+  ⎿  Received 751.5KB (200 OK)
+
+⏺ Web Search("YouTube thumbnail generator features face swap text overlay templates A/B testing 16:9")
+  ⎿  Did 1 search in 11s
+
+⏺ I have enough research. Let me check the existing repo structure briefly to align the plan with the project context.
+
+  Listed 2 directories (ctrl+o to expand)
+
+⏺ Let me read the spec template to match the expected format.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ I now have everything I need: research on Nano Banana Pro's API, common features across thumbnail tools, and the project's template/conventions. Let me write the plan.
+
+⏺ Write(specs/todo/youtube-thumbnail-generator-nano-banana-pro.md)
+  ⎿  Wrote 239 lines to specs/todo/youtube-thumbnail-generator-nano-banana-pro.md
+      2 # YouTube Thumbnail Generator (Nano Banana Pro)
+      3 ## Problem Statement
+      4 
+        s by hand is slow, requires design skill, and is hard to keep visually **consistent** across an entire channel (same face, same style, same brand colors video
+         after video).
+      6 
+        -brand YouTube thumbnail** while preserving the identity and look of the source images. The image engine is **Nano Banana Pro (Gemini 3 Pro Image)**, which is
+         purpose-built for identity-locked, multi-reference image generation with high-fidelity text rendering — exactly what thumbnails need.
+      8
+      9 ## Objectives
+     … +261 lines (ctrl+o to expand)
+
+⏺ Plan Created
+
+  File: specs/todo/youtube-thumbnail-generator-nano-banana-pro.md
+  Topic: YouTube thumbnail generator that recreates uploaded images (faces/people/icons) into identity-consistent 16:9 thumbnails using Nano Banana Pro (gemini-3-pro-image)
+  Phases: 5 (4 core + 1 optional stretch)
+
+  Key Components:
+  - Reference-driven generation — upload up to 6 images; Nano Banana Pro locks subject identity across outputs (the "keeps the same consistency" requirement)
+  - Secure server API route (Next.js + TypeScript) calling gemini-3-pro-image at 16:9 / 2K, so the key never hits the client
+  - Market-feature parity — presets/templates, bold text overlay, multiple variations for A/B testing, refine/edit loop, and YouTube-spec export (16:9, <2MB via sharp)
+
+  Research baked in (3 tools): I looked at 1of10 (data-backed, upload-ready outputs), Canva (template library + magic edit), and Test My Thumbnails / Thumbmagic (face swap,
+  variations, A/B testing). Their common denominators — upload/reference, text overlay, presets, multi-variation A/B, 16:9 export, re-edit — are all in the plan.
+
+  A couple of decisions I made so you weren't blocked:
+  - Stack = Next.js + TypeScript (UI + secure API route in one project, matches the GOOGLE_API_KEY already in your .env.example). Only Phase 2 is framework-specific if you'd
+  rather swap it.
+  - Defaults: 3 variations (capped at 6), 16:9 @ 2K. I also flagged risks worth knowing — SDK config field names are drifting between versions, the ~$0.13/image cost, and
+  the SynthID watermark on all outputs.
+  
+  Next: Run /build specs/todo/youtube-thumbnail-generator-nano-banana-pro.md to implement.
+
+  Sources: Gemini image generation docs · Nano Banana Pro for developers · 1of10 · CapCut · Thumbmagic A/B guide
+
+✻ Brewed for 2m 40s
+
+※ recap: We created an implementation plan for a YouTube thumbnail generator using Nano Banana Pro, saved to specs/todo/youtube-thumbnail-generator-nano-banana-pro.md. Next,
+  run /build on that file to implement it. (disable recaps in /config)
+
+❯ /EA-handoff                                                                                                                                                                
+
+⏺ Bash(mkdir -p specs/handoffs && ls specs/handoffs/)
+  ⎿  (No output)
+
+⏺ No existing handoffs — this will be 001. Writing the file now.
+
+⏺ Write(specs/handoffs/001-2026-06-07-youtube-thumbnail-generator.md)
+  ⎿  Wrote 32 lines to specs/handoffs/001-2026-06-07-youtube-thumbnail-generator.md
+      2 # Session Handoff - 2026-06-07
+      3 ## Context
+      4 We planned a YouTube thumbnail generator that uses Nano Banana Pro (Gemini 3 Pro Image) to recreate uploaded reference images (faces, people, icons) into iden
+        tity-consistent, brand-consistent 16:9 YouTube thumbnails. No code has been written yet — only the spec was produced.
+      5 
+      6 ## Completed
+      7 - Researched Nano Banana Pro (`gemini-3-pro-image`) API: model ID, endpoint, reference image support (up to 6 object + 5 character refs), 16:9 aspect ratio, 2
+        K output, ~$0.134/image, SynthID watermark on all outputs.
+      8 - Researched 3 competitor thumbnail tools (1of10, Canva AI, Test My Thumbnails/Thumbmagic) for common market features.
+      9 - Created detailed implementation plan at `specs/todo/youtube-thumbnail-generator-nano-banana-pro.md`.
+     … +30 lines (ctrl+o to expand)
+
+⏺ Handoff Created
+
+  File: specs/handoffs/001-2026-06-07-youtube-thumbnail-generator.md
+  Number: 001
+  Topic: youtube-thumbnail-generator
+
+  To resume: Run `/pickup` in your next session
+
+  The handoff captures: what was researched, the completed spec, the exact next step (/build specs/todo/youtube-thumbnail-generator-nano-banana-pro.md), the phase-by-phase
+  build order, and the key blockers (API key needed, SDK field name caveat, cost, SynthID watermark).
+
+✻ Baked for 26s
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ `/build specs/todo/youtube-thumbnail-generator-nano-banana-pro.md`
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ? for shortcuts · ← for agents
+
+
+
+###########
+
+
+Revert github repo back to commit prior to lesson 3:
+
+636ad2f43b2c651df3a649e1bcaa1c0dec26372b
+
+84086b515afbfbd758f8f3cebeb5b95752c8a0a8
+

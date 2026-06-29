@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #F8FAFC; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #1F2937;
+  padding: 15pt 30pt;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 15pt 30pt 40pt 30pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8pt;
+}
+.step {
+  background: #FFFFFF;
+  border-radius: 8pt;
+  padding: 10pt;
+  width: 100pt;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-top: 4pt solid #3B82F6;
+}
+.step.s2 { border-top-color: #A855F7; }
+.step.s3 { border-top-color: #22C55E; }
+.step.s4 { border-top-color: #F97316; }
+.step.s5 { border-top-color: #EF4444; }
+.step h3 { color: #1F2937; font-size: 11pt; margin: 0 0 5pt 0; }
+.step p { color: #6B7280; font-size: 8pt; margin: 0; line-height: 1.2; }
+.arrow { color: #9CA3AF; font-size: 16pt; }
+.bottom-note {
+  margin-top: 15pt;
+  text-align: center;
+}
+.bottom-note p { color: #6B7280; font-size: 10pt; margin: 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>The Process Flow</h1>
+</div>
+<div class="content">
+  <div class="flow">
+    <div class="step">
+      <h3>EXTRACT</h3>
+      <p>Pull data from vision boards, tasks, journals, goals</p>
+    </div>
+    <p class="arrow">&#8594;</p>
+    <div class="step s2">
+      <h3>ANALYZE</h3>
+      <p>Apply 5 Whys, identify patterns and themes</p>
+    </div>
+    <p class="arrow">&#8594;</p>
+    <div class="step s3">
+      <h3>SYNTHESIZE</h3>
+      <p>Connect dots across domains, find priorities</p>
+    </div>
+    <p class="arrow">&#8594;</p>
+    <div class="step s4">
+      <h3>DOCUMENT</h3>
+      <p>Generate Excel, PPTX, PDF outputs</p>
+    </div>
+    <p class="arrow">&#8594;</p>
+    <div class="step s5">
+      <h3>ACTION</h3>
+      <p>Implement plan with clear milestones</p>
+    </div>
+  </div>
+  <div class="bottom-note">
+    <p>Each stage builds on the previous. Iteration is expected as new insights emerge.</p>
+  </div>
+</div>
+</body>
+</html>

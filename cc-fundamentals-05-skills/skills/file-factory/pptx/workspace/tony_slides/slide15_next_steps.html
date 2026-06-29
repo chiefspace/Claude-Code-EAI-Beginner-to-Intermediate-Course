@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #0A0A0F; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #0A0A0F; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header-bar {
+  height: 6pt;
+  display: flex;
+}
+.header-health { background: #22C55E; flex: 1; }
+.header-relationships { background: #A855F7; flex: 1; }
+.header-work { background: #3B82F6; flex: 1; }
+.header-play { background: #F97316; flex: 1; }
+.title-area {
+  background: #1A1A2E;
+  padding: 12pt 30pt;
+}
+.content {
+  flex: 1;
+  padding: 15pt 25pt 50pt 25pt;
+  display: flex;
+  gap: 20pt;
+}
+.action-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6pt;
+}
+.action-item {
+  background: #1A1A2E;
+  border-left: 3pt solid;
+  padding: 8pt 12pt;
+  border-radius: 0 6pt 6pt 0;
+}
+.action-item.week1 { border-color: #EF4444; }
+.action-item.week2 { border-color: #F97316; }
+.action-item.week3 { border-color: #22C55E; }
+.quote-box {
+  width: 200pt;
+  background: #1A1A2E;
+  border: 3pt solid #22C55E;
+  border-radius: 10pt;
+  padding: 20pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="header-bar">
+  <div class="header-health"></div>
+  <div class="header-relationships"></div>
+  <div class="header-work"></div>
+  <div class="header-play"></div>
+</div>
+<div class="title-area">
+  <h1 style="font-size: 24pt; color: #FFFFFF; margin: 0;">Next Steps</h1>
+</div>
+<div class="content">
+  <div class="action-list">
+    <div class="action-item week1">
+      <p style="font-size: 9pt; color: #EF4444; margin: 0 0 3pt 0;">THIS WEEK</p>
+      <p style="font-size: 11pt; color: #FFFFFF; margin: 0;">Send Jasen decline message</p>
+    </div>
+    <div class="action-item week1">
+      <p style="font-size: 9pt; color: #EF4444; margin: 0 0 3pt 0;">THIS WEEK</p>
+      <p style="font-size: 11pt; color: #FFFFFF; margin: 0;">Draft BJJ Intelligence outline</p>
+    </div>
+    <div class="action-item week2">
+      <p style="font-size: 9pt; color: #F97316; margin: 0 0 3pt 0;">WEEK 2</p>
+      <p style="font-size: 11pt; color: #FFFFFF; margin: 0;">Create freelance profiles</p>
+    </div>
+    <div class="action-item week2">
+      <p style="font-size: 9pt; color: #F97316; margin: 0 0 3pt 0;">WEEK 2</p>
+      <p style="font-size: 11pt; color: #FFFFFF; margin: 0;">Start client outreach</p>
+    </div>
+    <div class="action-item week3">
+      <p style="font-size: 9pt; color: #22C55E; margin: 0 0 3pt 0;">WEEK 3</p>
+      <p style="font-size: 11pt; color: #FFFFFF; margin: 0;">Set up BJJ Intelligence Skool</p>
+    </div>
+    <div class="action-item week3">
+      <p style="font-size: 9pt; color: #22C55E; margin: 0 0 3pt 0;">WEEK 3</p>
+      <p style="font-size: 11pt; color: #FFFFFF; margin: 0;">Create first content piece</p>
+    </div>
+  </div>
+  <div class="quote-box">
+    <p style="font-size: 12pt; color: #22C55E; font-weight: bold; margin: 0;">THE DECISION</p>
+    <p style="font-size: 18pt; color: #FFFFFF; font-weight: bold; margin: 10pt 0;">BJJ Intelligence First</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">Decline Jasen for now</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 3pt 0;">Defer AI Lunchbox</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 3pt 0;">Maintain AiF minimally</p>
+    <p style="font-size: 11pt; color: #F97316; font-style: italic; margin: 12pt 0 0 0;">"It's a groovy thing to do"</p>
+  </div>
+</div>
+</body>
+</html>

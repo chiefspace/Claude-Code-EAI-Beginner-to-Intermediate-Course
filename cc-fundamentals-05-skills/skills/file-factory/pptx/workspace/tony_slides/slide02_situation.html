@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #0A0A0F; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #0A0A0F; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #3B82F6;
+  padding: 12pt 30pt;
+}
+.content {
+  flex: 1;
+  padding: 25pt 30pt;
+  display: flex;
+  gap: 20pt;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15pt;
+  flex: 1;
+}
+.stat-card {
+  background: #1A1A2E;
+  border: 2pt solid #30363D;
+  border-radius: 8pt;
+  padding: 15pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat-card.highlight {
+  border-color: #F97316;
+}
+.reality-box {
+  width: 200pt;
+  background: #1A1A2E;
+  border: 3pt solid #22C55E;
+  border-radius: 8pt;
+  padding: 15pt;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1 style="font-size: 24pt; color: #FFFFFF; margin: 0;">Current Situation</h1>
+</div>
+<div class="content">
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p style="font-size: 10pt; color: #3B82F6; text-transform: uppercase; margin: 0;">Days into AI Career</p>
+      <p style="font-size: 36pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">14</p>
+      <p style="font-size: 11pt; color: #94A3B8; margin: 0;">Quit serving Jan 1, 2026</p>
+    </div>
+    <div class="stat-card highlight">
+      <p style="font-size: 10pt; color: #F97316; text-transform: uppercase; margin: 0;">30th Birthday</p>
+      <p style="font-size: 28pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">Feb 7</p>
+      <p style="font-size: 11pt; color: #94A3B8; margin: 0;">25 days away</p>
+    </div>
+    <div class="stat-card">
+      <p style="font-size: 10pt; color: #A855F7; text-transform: uppercase; margin: 0;">Canada Speaking Gig</p>
+      <p style="font-size: 28pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">March</p>
+      <p style="font-size: 11pt; color: #94A3B8; margin: 0;">Paid opportunity</p>
+    </div>
+    <div class="stat-card">
+      <p style="font-size: 10pt; color: #22C55E; text-transform: uppercase; margin: 0;">Current Income</p>
+      <p style="font-size: 28pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">$500</p>
+      <p style="font-size: 11pt; color: #94A3B8; margin: 0;">AI Foundations only</p>
+    </div>
+  </div>
+  <div class="reality-box">
+    <p style="font-size: 12pt; color: #22C55E; font-weight: bold; margin: 0 0 10pt 0;">Financial Reality</p>
+    <ul style="font-size: 11pt; color: #C9D1D9; margin: 0; padding-left: 15pt;">
+      <li style="margin-bottom: 8pt;">Savings depleted</li>
+      <li style="margin-bottom: 8pt;">Rent due February</li>
+      <li style="margin-bottom: 8pt;">Limited runway</li>
+      <li>Spent on courses Nov/Dec</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

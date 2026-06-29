@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #F8FAFC; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #1F2937;
+  padding: 15pt 30pt;
+  border-bottom: 4pt solid #3B82F6;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 15pt 30pt 40pt 30pt;
+  display: flex;
+  gap: 15pt;
+}
+.left {
+  flex: 1;
+}
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8pt;
+}
+h2 { color: #1F2937; font-size: 16pt; margin: 0 0 10pt 0; }
+p { color: #374151; font-size: 12pt; line-height: 1.4; margin: 0 0 8pt 0; }
+.card {
+  background: #FFFFFF;
+  border-radius: 6pt;
+  padding: 10pt;
+  border-left: 4pt solid #3B82F6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.card.purple { border-left-color: #A855F7; }
+.card.green { border-left-color: #22C55E; }
+.card.orange { border-left-color: #F97316; }
+.card h3 { color: #1F2937; font-size: 12pt; margin: 0 0 5pt 0; }
+.card p { font-size: 10pt; margin: 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>What is the Career Clarity Framework?</h1>
+</div>
+<div class="content">
+  <div class="left">
+    <h2>The Problem</h2>
+    <p>Many people feel stuck between multiple paths, overwhelmed by options, or unclear about their direction. Traditional goal-setting often fails because it starts with WHAT before understanding WHY.</p>
+    <h2>The Solution</h2>
+    <p>A systematic process that extracts insights from your existing data, applies root-cause analysis, and generates actionable documentation to guide your decisions.</p>
+  </div>
+  <div class="right">
+    <div class="card">
+      <h3>Extract</h3>
+      <p>Pull data from vision boards, task managers, journals, and past goals</p>
+    </div>
+    <div class="card purple">
+      <h3>Analyze</h3>
+      <p>Apply the 5 Whys methodology to uncover root motivations</p>
+    </div>
+    <div class="card green">
+      <h3>Synthesize</h3>
+      <p>Identify patterns across life domains and priorities</p>
+    </div>
+    <div class="card orange">
+      <h3>Document</h3>
+      <p>Generate Excel, PowerPoint, PDF outputs for clarity</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

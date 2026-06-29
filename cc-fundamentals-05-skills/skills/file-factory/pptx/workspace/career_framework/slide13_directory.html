@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #1F2937; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  padding: 15pt 30pt;
+  border-bottom: 4pt solid #A855F7;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 12pt 30pt 40pt 30pt;
+  display: flex;
+  gap: 15pt;
+}
+.tree {
+  flex: 1;
+  background: #0D1117;
+  border-radius: 6pt;
+  padding: 10pt;
+  font-family: Courier New, monospace;
+}
+.tree p { color: #8B949E; font-size: 8pt; margin: 0 0 2pt 0; }
+.tree .folder { color: #58A6FF; }
+.tree .file { color: #C9D1D9; }
+.tree .special { color: #F97316; }
+.tree .comment { color: #6E7681; }
+.desc {
+  flex: 1;
+}
+.folder-desc {
+  background: #374151;
+  border-radius: 5pt;
+  padding: 8pt;
+  margin-bottom: 6pt;
+}
+.folder-desc h3 { color: #FFFFFF; font-size: 10pt; margin: 0 0 3pt 0; }
+.folder-desc p { color: #9CA3AF; font-size: 8pt; margin: 0; line-height: 1.3; }
+.folder-desc .path { color: #A855F7; font-family: Courier New, monospace; font-size: 7pt; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Project Directory Structure</h1>
+</div>
+<div class="content">
+  <div class="tree">
+    <p><span class="folder">Project-Management/</span></p>
+    <p>&nbsp;&nbsp;<span class="folder">.claude/</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">commands/</span> <span class="comment"># Slash commands</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">morning.md</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">update.md</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">reflect.md</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">eisenhower.md</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">delegate.md</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">references/</span> <span class="comment"># Supporting docs</span></p>
+    <p>&nbsp;&nbsp;<span class="folder special">specs/</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">todo/</span> <span class="comment"># Active plans</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">done/</span> <span class="comment"># Completed plans</span></p>
+    <p>&nbsp;&nbsp;<span class="folder special">docs/</span> <span class="comment"># Generated outputs</span></p>
+    <p>&nbsp;&nbsp;<span class="folder">.omni-cortex/</span> <span class="comment"># Memory DB</span></p>
+  </div>
+  <div class="desc">
+    <div class="folder-desc">
+      <h3>specs/todo/</h3>
+      <p>Active planning documents. Quick plans go here before implementation. Moved to done/ when complete.</p>
+      <p class="path">specs/todo/my-feature.md</p>
+    </div>
+    <div class="folder-desc">
+      <h3>specs/done/</h3>
+      <p>Archive of completed plans. Preserves history of what was built and why.</p>
+      <p class="path">specs/done/completed-feature.md</p>
+    </div>
+    <div class="folder-desc">
+      <h3>docs/</h3>
+      <p>Generated outputs: Excel trackers, PowerPoint presentations, PDF summaries.</p>
+      <p class="path">docs/Career_Clarity.pptx</p>
+    </div>
+    <div class="folder-desc">
+      <h3>.claude/commands/</h3>
+      <p>Slash command definitions. Each .md file becomes a runnable /command.</p>
+      <p class="path">.claude/commands/morning.md</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

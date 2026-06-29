@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #0A0A0F; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #0A0A0F; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #EF4444;
+  padding: 12pt 30pt;
+}
+.content {
+  flex: 1;
+  padding: 25pt 30pt;
+  display: flex;
+  gap: 20pt;
+}
+.decision-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12pt;
+}
+.decision-card {
+  background: #1A1A2E;
+  border: 2pt solid #30363D;
+  border-radius: 8pt;
+  padding: 15pt;
+}
+.decision-card.revisit { border-color: #22C55E; }
+.decision-card.pivot { border-color: #F97316; }
+.decision-card.warning { border-color: #EF4444; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1 style="font-size: 24pt; color: #FFFFFF; margin: 0;">Decision Points</h1>
+</div>
+<div class="content">
+  <div class="decision-column">
+    <p style="font-size: 14pt; color: #22C55E; font-weight: bold; margin: 0 0 10pt 0;">When to Revisit</p>
+    <div class="decision-card revisit">
+      <p style="font-size: 12pt; color: #22C55E; font-weight: bold; margin: 0;">AI Lunchbox</p>
+      <p style="font-size: 10pt; color: #C9D1D9; margin: 5pt 0 0 0;">After BJJ Intelligence has 50+ members and stable content rhythm</p>
+      <p style="font-size: 9pt; color: #94A3B8; margin: 5pt 0 0 0;">Timeline: Month 4-6</p>
+    </div>
+    <div class="decision-card revisit">
+      <p style="font-size: 12pt; color: #22C55E; font-weight: bold; margin: 0;">Jasen Partnership</p>
+      <p style="font-size: 10pt; color: #C9D1D9; margin: 5pt 0 0 0;">After 3-6 months of stability and clear bandwidth assessment</p>
+      <p style="font-size: 9pt; color: #94A3B8; margin: 5pt 0 0 0;">Timeline: Q3 2026</p>
+    </div>
+  </div>
+  <div class="decision-column">
+    <p style="font-size: 14pt; color: #F97316; font-weight: bold; margin: 0 0 10pt 0;">Pivot Triggers</p>
+    <div class="decision-card pivot">
+      <p style="font-size: 12pt; color: #F97316; font-weight: bold; margin: 0;">BJJ Intelligence not gaining traction</p>
+      <p style="font-size: 10pt; color: #C9D1D9; margin: 5pt 0 0 0;">If less than 20 members after 3 months, evaluate pivot to AI Lunchbox</p>
+    </div>
+    <div class="decision-card pivot">
+      <p style="font-size: 12pt; color: #F97316; font-weight: bold; margin: 0;">Freelance dominates time</p>
+      <p style="font-size: 10pt; color: #C9D1D9; margin: 5pt 0 0 0;">If clients take 30+ hrs/week, pause community building temporarily</p>
+    </div>
+  </div>
+  <div class="decision-column">
+    <p style="font-size: 14pt; color: #EF4444; font-weight: bold; margin: 0 0 10pt 0;">Red Flags</p>
+    <div class="decision-card warning">
+      <p style="font-size: 12pt; color: #EF4444; font-weight: bold; margin: 0;">Runway depleted</p>
+      <p style="font-size: 10pt; color: #C9D1D9; margin: 5pt 0 0 0;">If savings hit zero, prioritize any revenue source immediately</p>
+    </div>
+    <div class="decision-card warning">
+      <p style="font-size: 12pt; color: #EF4444; font-weight: bold; margin: 0;">Burnout signs</p>
+      <p style="font-size: 10pt; color: #C9D1D9; margin: 5pt 0 0 0;">If losing passion for BJJ content, pause and reassess</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #1F2937; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  padding: 15pt 30pt;
+  border-bottom: 4pt solid #A855F7;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 15pt 30pt 40pt 30pt;
+  display: flex;
+  gap: 20pt;
+}
+.left { flex: 1.2; }
+.right { flex: 1; }
+h2 { color: #A855F7; font-size: 14pt; margin: 0 0 8pt 0; }
+p { color: #D1D5DB; font-size: 11pt; line-height: 1.4; margin: 0 0 10pt 0; }
+.why-box {
+  background: #374151;
+  border-radius: 4pt;
+  padding: 8pt 10pt;
+  border-left: 3pt solid #A855F7;
+  margin-bottom: 5pt;
+}
+.why-box p { color: #E5E7EB; font-size: 10pt; margin: 0; }
+.why-num { color: #A855F7; font-weight: bold; }
+.arrow { color: #6B7280; font-size: 12pt; text-align: center; margin: 2pt 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>The 5 Whys Methodology</h1>
+</div>
+<div class="content">
+  <div class="left">
+    <h2>Root-Cause Analysis for Life Decisions</h2>
+    <p>Originally developed by Toyota for manufacturing, the 5 Whys technique drills down to the root cause by asking "Why?" repeatedly.</p>
+    <h2>Why It Works</h2>
+    <p>Surface answers reveal symptoms. Deep answers reveal patterns. By the 5th "Why", you discover motivations you never consciously recognized.</p>
+  </div>
+  <div class="right">
+    <div class="why-box">
+      <p><span class="why-num">Surface:</span> I feel stuck</p>
+    </div>
+    <p class="arrow">Why?</p>
+    <div class="why-box">
+      <p><span class="why-num">Layer 2:</span> Too many options</p>
+    </div>
+    <p class="arrow">Why?</p>
+    <div class="why-box">
+      <p><span class="why-num">Layer 3:</span> Fear of wrong choice</p>
+    </div>
+    <p class="arrow">Why?</p>
+    <div class="why-box">
+      <p><span class="why-num">ROOT:</span> Need for security</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

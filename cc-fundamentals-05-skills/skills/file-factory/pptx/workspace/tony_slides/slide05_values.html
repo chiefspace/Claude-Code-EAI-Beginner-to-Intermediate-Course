@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #0A0A0F; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #0A0A0F; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #22C55E;
+  padding: 12pt 30pt;
+}
+.content {
+  flex: 1;
+  padding: 20pt 30pt;
+  display: flex;
+  flex-direction: column;
+  gap: 12pt;
+}
+.evolution-row {
+  display: flex;
+  gap: 15pt;
+  align-items: stretch;
+}
+.year-box {
+  flex: 1;
+  background: #1A1A2E;
+  border-radius: 8pt;
+  padding: 15pt;
+  border: 2pt solid #30363D;
+}
+.year-box.left { border-color: #94A3B8; }
+.year-box.right { border-color: #22C55E; }
+.arrow-box {
+  width: 50pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10pt;
+  margin-top: 10pt;
+}
+.comp-card {
+  background: #1A1A2E;
+  border: 2pt solid #30363D;
+  border-radius: 6pt;
+  padding: 10pt;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1 style="font-size: 24pt; color: #FFFFFF; margin: 0;">Values Evolution: 2024 to 2026</h1>
+</div>
+<div class="content">
+  <div class="evolution-row">
+    <div class="year-box left">
+      <p style="font-size: 18pt; color: #94A3B8; font-weight: bold; margin: 0;">2024</p>
+      <p style="font-size: 11pt; color: #C9D1D9; margin: 8pt 0 0 0;">Balance, calmness, zen</p>
+      <p style="font-size: 11pt; color: #C9D1D9; margin: 4pt 0 0 0;">$5K savings target</p>
+      <p style="font-size: 11pt; color: #C9D1D9; margin: 4pt 0 0 0;">Red-black belt dream</p>
+    </div>
+    <div class="arrow-box">
+      <p style="font-size: 36pt; color: #F97316; margin: 0;">&#x2192;</p>
+    </div>
+    <div class="year-box right">
+      <p style="font-size: 18pt; color: #22C55E; font-weight: bold; margin: 0;">2026</p>
+      <p style="font-size: 11pt; color: #C9D1D9; margin: 8pt 0 0 0;">Achievement over balance for ROI</p>
+      <p style="font-size: 11pt; color: #C9D1D9; margin: 4pt 0 0 0;">$10K MRR target</p>
+      <p style="font-size: 11pt; color: #C9D1D9; margin: 4pt 0 0 0;">Blue belt achieved!</p>
+    </div>
+  </div>
+  <div class="comparison-grid">
+    <div class="comp-card">
+      <p style="font-size: 10pt; color: #3B82F6; text-transform: uppercase; margin: 0;">Order vs Achievement</p>
+      <p style="font-size: 12pt; color: #F97316; font-weight: bold; margin: 5pt 0 0 0;">SHIFTED</p>
+    </div>
+    <div class="comp-card">
+      <p style="font-size: 10pt; color: #22C55E; text-transform: uppercase; margin: 0;">BJJ Goals</p>
+      <p style="font-size: 12pt; color: #22C55E; font-weight: bold; margin: 5pt 0 0 0;">ACHIEVED</p>
+    </div>
+    <div class="comp-card">
+      <p style="font-size: 10pt; color: #A855F7; text-transform: uppercase; margin: 0;">Financial Target</p>
+      <p style="font-size: 12pt; color: #A855F7; font-weight: bold; margin: 5pt 0 0 0;">ELEVATED</p>
+    </div>
+    <div class="comp-card">
+      <p style="font-size: 10pt; color: #F97316; text-transform: uppercase; margin: 0;">Work/Play</p>
+      <p style="font-size: 12pt; color: #F97316; font-weight: bold; margin: 5pt 0 0 0;">MERGED</p>
+    </div>
+  </div>
+  <div style="background: #1A1A2E; border: 2pt solid #A855F7; border-radius: 8pt; padding: 12pt; text-align: center;">
+    <p style="font-size: 12pt; color: #A855F7; font-style: italic; margin: 0;">"It's a groovy thing to do" - Core philosophy UNCHANGED</p>
+  </div>
+</div>
+</body>
+</html>

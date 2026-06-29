@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #F8FAFC; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #1F2937;
+  padding: 15pt 30pt;
+  border-bottom: 4pt solid #3B82F6;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 12pt 30pt 40pt 30pt;
+  display: flex;
+  gap: 15pt;
+}
+.diagram {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 8pt;
+}
+.layer {
+  background: #FFFFFF;
+  border-radius: 6pt;
+  padding: 8pt 12pt;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-left: 4pt solid #3B82F6;
+}
+.layer.purple { border-left-color: #A855F7; }
+.layer.green { border-left-color: #22C55E; }
+.layer.orange { border-left-color: #F97316; }
+.layer h3 { color: #1F2937; font-size: 11pt; margin: 0 0 3pt 0; }
+.layer p { color: #6B7280; font-size: 9pt; margin: 0; }
+.desc {
+  flex: 1;
+}
+.desc h2 { color: #1F2937; font-size: 13pt; margin: 0 0 8pt 0; }
+.desc p { color: #374151; font-size: 10pt; line-height: 1.4; margin: 0 0 8pt 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>System Architecture Overview</h1>
+</div>
+<div class="content">
+  <div class="diagram">
+    <div class="layer">
+      <h3>User Interface Layer</h3>
+      <p>Claude Code CLI with slash commands (/morning, /update, /reflect)</p>
+    </div>
+    <div class="layer purple">
+      <h3>Integration Layer</h3>
+      <p>MCP servers connecting to external services (TickTick, Supabase)</p>
+    </div>
+    <div class="layer green">
+      <h3>Memory Layer</h3>
+      <p>Omni-Cortex for session persistence and cross-project context</p>
+    </div>
+    <div class="layer orange">
+      <h3>Data Layer</h3>
+      <p>Supabase for historical storage, embeddings, and analytics</p>
+    </div>
+  </div>
+  <div class="desc">
+    <h2>How It Works</h2>
+    <p>The system creates a unified workflow where tasks flow from TickTick through daily commands, get tracked in memory, and persist to Supabase for long-term analysis.</p>
+    <p>Each layer serves a specific purpose: UI for interaction, MCPs for data access, memory for session continuity, and database for historical patterns.</p>
+    <p>The result is a system that learns your productivity patterns and improves recommendations over time.</p>
+  </div>
+</div>
+</body>
+</html>

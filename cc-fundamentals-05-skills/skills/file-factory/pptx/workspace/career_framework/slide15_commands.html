@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #1F2937; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  padding: 15pt 30pt;
+  border-bottom: 4pt solid #F97316;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 10pt 30pt 40pt 30pt;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10pt;
+}
+.command {
+  background: #374151;
+  border-radius: 6pt;
+  padding: 8pt;
+  border-top: 3pt solid #3B82F6;
+}
+.command.c2 { border-top-color: #22C55E; }
+.command.c3 { border-top-color: #A855F7; }
+.command.c4 { border-top-color: #F97316; }
+.command.c5 { border-top-color: #EF4444; }
+.cmd-name {
+  font-family: Courier New, monospace;
+  color: #60A5FA;
+  font-size: 11pt;
+  margin: 0 0 5pt 0;
+}
+.command h3 { color: #FFFFFF; font-size: 10pt; margin: 0 0 5pt 0; }
+.command p { color: #9CA3AF; font-size: 8pt; margin: 0 0 5pt 0; line-height: 1.3; }
+.command .time { color: #6B7280; font-size: 8pt; margin: 0; }
+.command .model {
+  display: inline-block;
+  background: #4B5563;
+  padding: 2pt 5pt;
+  border-radius: 2pt;
+  margin-top: 3pt;
+}
+.command .model p {
+  color: #D1D5DB;
+  font-size: 7pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>The 5 Slash Commands</h1>
+</div>
+<div class="content">
+  <div class="command">
+    <p class="cmd-name">/morning</p>
+    <h3>Morning Agenda</h3>
+    <p>Pulls yesterday's focus from Supabase, fetches TickTick tasks, categorizes by Eisenhower quadrant, confirms top 3 priorities.</p>
+    <p class="time">8-10 AM | ~10 min</p>
+    <div class="model"><p>sonnet</p></div>
+  </div>
+  <div class="command c2">
+    <p class="cmd-name">/update</p>
+    <h3>Afternoon Check-in</h3>
+    <p>Recalls morning priorities, asks status on each (done/in-progress/blocked), updates TickTick, checks for new urgent items.</p>
+    <p class="time">12-3 PM | ~5 min</p>
+    <div class="model"><p>haiku</p></div>
+  </div>
+  <div class="command c3">
+    <p class="cmd-name">/reflect</p>
+    <h3>Evening Reflection</h3>
+    <p>Captures 3 wins (Relationships, Personal, Health), scores productivity (0-100), generates tomorrow's priorities, writes to Supabase.</p>
+    <p class="time">9 PM | ~15 min</p>
+    <div class="model"><p>opus</p></div>
+  </div>
+  <div class="command c4">
+    <p class="cmd-name">/eisenhower</p>
+    <h3>Anytime Matrix</h3>
+    <p>Quick view of all tasks categorized into Q1-Q4. No storage, just clarity. Use before meetings or mid-day decisions.</p>
+    <p class="time">Anytime | ~2 min</p>
+    <div class="model"><p>haiku</p></div>
+  </div>
+  <div class="command c5">
+    <p class="cmd-name">/delegate</p>
+    <h3>Automation Review</h3>
+    <p>Identifies Q3 tasks (urgent but not important) that could be automated, delegated, or eliminated. Weekly review.</p>
+    <p class="time">Weekly | ~5 min</p>
+    <div class="model"><p>sonnet</p></div>
+  </div>
+</div>
+</body>
+</html>

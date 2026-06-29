@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #1F2937; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  padding: 15pt 30pt;
+  border-bottom: 4pt solid #F97316;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 12pt 30pt 40pt 30pt;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12pt;
+}
+.format {
+  background: #374151;
+  border-radius: 6pt;
+  padding: 10pt;
+}
+.format-header {
+  display: flex;
+  align-items: center;
+  gap: 8pt;
+  margin-bottom: 6pt;
+}
+.format-icon {
+  background: #F97316;
+  color: #FFFFFF;
+  padding: 4pt 8pt;
+  border-radius: 3pt;
+  font-size: 9pt;
+  font-weight: bold;
+}
+.format-icon.blue { background: #3B82F6; }
+.format-icon.purple { background: #A855F7; }
+.format-icon.green { background: #22C55E; }
+.format h3 { color: #FFFFFF; font-size: 11pt; margin: 0; }
+.format p { color: #9CA3AF; font-size: 9pt; margin: 0 0 5pt 0; line-height: 1.3; }
+.use-cases { margin: 5pt 0 0 0; padding: 0; }
+.use-cases li { color: #D1D5DB; font-size: 8pt; margin: 0 0 2pt 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Document Generation Outputs</h1>
+</div>
+<div class="content">
+  <div class="format">
+    <div class="format-header">
+      <div class="format-icon green"><p>.xlsx</p></div>
+      <h3>Excel Spreadsheets</h3>
+    </div>
+    <p>Structured data for tracking, comparison, and analysis.</p>
+    <ul class="use-cases">
+      <li>Life domain breakdown matrices</li>
+      <li>Goal tracking with metrics</li>
+      <li>Decision comparison tables</li>
+      <li>Timeline and milestone tracking</li>
+    </ul>
+  </div>
+  <div class="format">
+    <div class="format-header">
+      <div class="format-icon"><p>.pptx</p></div>
+      <h3>PowerPoint Presentations</h3>
+    </div>
+    <p>Visual storytelling for clarity and sharing.</p>
+    <ul class="use-cases">
+      <li>Career path visualization</li>
+      <li>Vision board consolidation</li>
+      <li>Progress presentations</li>
+      <li>Decision frameworks</li>
+    </ul>
+  </div>
+  <div class="format">
+    <div class="format-header">
+      <div class="format-icon blue"><p>.pdf</p></div>
+      <h3>PDF Documents</h3>
+    </div>
+    <p>Executive summaries and portable reference documents.</p>
+    <ul class="use-cases">
+      <li>One-page clarity summaries</li>
+      <li>Action plan documents</li>
+      <li>Shareable overviews</li>
+      <li>Print-ready formats</li>
+    </ul>
+  </div>
+  <div class="format">
+    <div class="format-header">
+      <div class="format-icon purple"><p>.md</p></div>
+      <h3>Markdown Files</h3>
+    </div>
+    <p>Detailed planning documents and specifications.</p>
+    <ul class="use-cases">
+      <li>Detailed analysis write-ups</li>
+      <li>Implementation plans</li>
+      <li>Decision documentation</li>
+      <li>Version-controlled notes</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

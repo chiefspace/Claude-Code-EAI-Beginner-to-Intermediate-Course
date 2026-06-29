@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #F8FAFC; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #A855F7;
+  padding: 15pt 30pt;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 10pt 30pt 40pt 30pt;
+  display: flex;
+  gap: 15pt;
+}
+.cycle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6pt;
+}
+.cycle-step {
+  background: #FFFFFF;
+  border-radius: 6pt;
+  padding: 10pt;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 10pt;
+  align-items: flex-start;
+}
+.step-icon {
+  width: 28pt;
+  height: 28pt;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 12pt;
+  flex-shrink: 0;
+}
+.icon-act { background: #3B82F6; }
+.icon-learn { background: #22C55E; }
+.icon-reuse { background: #F97316; }
+.step-content h3 { color: #1F2937; font-size: 11pt; margin: 0 0 3pt 0; }
+.step-content p { color: #6B7280; font-size: 8pt; margin: 0; line-height: 1.3; }
+.patterns {
+  flex: 1;
+}
+.patterns h2 { color: #A855F7; font-size: 12pt; margin: 0 0 8pt 0; }
+.pattern {
+  background: #FFFFFF;
+  border-radius: 5pt;
+  padding: 8pt 10pt;
+  margin-bottom: 5pt;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.pattern h4 { color: #1F2937; font-size: 9pt; margin: 0 0 2pt 0; }
+.pattern p { color: #6B7280; font-size: 8pt; margin: 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Self-Improving Patterns</h1>
+</div>
+<div class="content">
+  <div class="cycle">
+    <div class="cycle-step">
+      <div class="step-icon icon-act"><p>A</p></div>
+      <div class="step-content">
+        <h3>ACT</h3>
+        <p>Commands execute useful actions: /morning generates priorities, /reflect scores productivity, /delegate identifies automation opportunities.</p>
+      </div>
+    </div>
+    <div class="cycle-step">
+      <div class="step-icon icon-learn"><p>L</p></div>
+      <div class="step-content">
+        <h3>LEARN</h3>
+        <p>Store insights for future use. Track satisfaction prediction accuracy, record task batching patterns, note recurring themes and correlations.</p>
+      </div>
+    </div>
+    <div class="cycle-step">
+      <div class="step-icon icon-reuse"><p>R</p></div>
+      <div class="step-content">
+        <h3>REUSE</h3>
+        <p>Apply learnings to future sessions. Adjust thresholds based on history, recommend proven task combinations, warn about burnout patterns.</p>
+      </div>
+    </div>
+  </div>
+  <div class="patterns">
+    <h2>Patterns Discovered Over Time</h2>
+    <div class="pattern">
+      <h4>High Productivity Days</h4>
+      <p>Morning exercise + 2-3 Q2 tasks + limited meetings = peak performance</p>
+    </div>
+    <div class="pattern">
+      <h4>Burnout Indicators</h4>
+      <p>Multiple Q1 tasks + 5+ consecutive high days = risk warning</p>
+    </div>
+    <div class="pattern">
+      <h4>Optimal Batching</h4>
+      <p>Learning before building + social after deep work = higher satisfaction</p>
+    </div>
+    <div class="pattern">
+      <h4>Prediction Accuracy</h4>
+      <p>System tracks predicted vs actual satisfaction to improve recommendations</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

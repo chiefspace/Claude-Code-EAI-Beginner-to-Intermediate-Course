@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #F8FAFC; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #1F2937;
+  padding: 15pt 30pt;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 12pt 30pt 40pt 30pt;
+  display: flex;
+  flex-direction: column;
+  gap: 10pt;
+}
+.timeline {
+  display: flex;
+  align-items: stretch;
+  gap: 12pt;
+}
+.time-block {
+  flex: 1;
+  background: #FFFFFF;
+  border-radius: 6pt;
+  padding: 10pt;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-top: 4pt solid #3B82F6;
+}
+.time-block.afternoon { border-top-color: #22C55E; }
+.time-block.evening { border-top-color: #A855F7; }
+.time-label {
+  color: #6B7280;
+  font-size: 8pt;
+  margin: 0 0 3pt 0;
+}
+.time-block h3 { color: #1F2937; font-size: 11pt; margin: 0 0 5pt 0; }
+.time-block p { color: #374151; font-size: 9pt; margin: 0 0 5pt 0; line-height: 1.3; }
+.actions { margin: 0; padding: 0; }
+.actions li { color: #6B7280; font-size: 8pt; margin: 0 0 2pt 0; }
+.footer-note {
+  background: #374151;
+  border-radius: 5pt;
+  padding: 8pt 12pt;
+  display: flex;
+  align-items: center;
+  gap: 10pt;
+}
+.footer-note p { color: #D1D5DB; font-size: 9pt; margin: 0; }
+.stat {
+  background: #4B5563;
+  padding: 4pt 8pt;
+  border-radius: 3pt;
+}
+.stat p { color: #F97316; font-weight: bold; font-size: 10pt; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Daily Workflow</h1>
+</div>
+<div class="content">
+  <div class="timeline">
+    <div class="time-block">
+      <p class="time-label">8-10 AM</p>
+      <h3>Morning: /morning</h3>
+      <p>Start the day with clarity on what matters most.</p>
+      <ul class="actions">
+        <li>Review yesterday's planned focus</li>
+        <li>See Eisenhower Matrix view</li>
+        <li>Confirm top 3 priorities</li>
+        <li>Store in memory for afternoon</li>
+      </ul>
+    </div>
+    <div class="time-block afternoon">
+      <p class="time-label">12-3 PM</p>
+      <h3>Afternoon: /update</h3>
+      <p>Quick status check to stay on track.</p>
+      <ul class="actions">
+        <li>Status on each priority</li>
+        <li>Update TickTick tasks</li>
+        <li>Check for new urgent items</li>
+        <li>Adjust plan if needed</li>
+      </ul>
+    </div>
+    <div class="time-block evening">
+      <p class="time-label">9 PM</p>
+      <h3>Evening: /reflect</h3>
+      <p>Capture wins and plan tomorrow.</p>
+      <ul class="actions">
+        <li>Record 3 wins by category</li>
+        <li>Score productivity (0-100)</li>
+        <li>Generate tomorrow's priorities</li>
+        <li>Write to Supabase</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note">
+    <div class="stat">
+      <p>~30 min/day</p>
+    </div>
+    <p>Total daily investment for complete workflow. System learns and improves over time.</p>
+  </div>
+</div>
+</body>
+</html>

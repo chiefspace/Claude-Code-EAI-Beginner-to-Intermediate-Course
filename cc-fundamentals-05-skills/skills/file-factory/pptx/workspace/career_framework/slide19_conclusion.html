@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #1F2937; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.top-bar {
+  height: 6pt;
+  background: #3B82F6;
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30pt 40pt 50pt 40pt;
+}
+h1 { color: #FFFFFF; font-size: 26pt; margin: 0 0 15pt 0; }
+.summary {
+  display: flex;
+  gap: 12pt;
+  margin-bottom: 20pt;
+}
+.summary-item {
+  flex: 1;
+  background: #374151;
+  border-radius: 6pt;
+  padding: 10pt;
+  text-align: center;
+}
+.summary-item h3 { color: #FFFFFF; font-size: 11pt; margin: 0 0 5pt 0; }
+.summary-item p { color: #9CA3AF; font-size: 9pt; margin: 0; }
+.summary-item.blue { border-top: 4pt solid #3B82F6; }
+.summary-item.purple { border-top: 4pt solid #A855F7; }
+.summary-item.green { border-top: 4pt solid #22C55E; }
+.summary-item.orange { border-top: 4pt solid #F97316; }
+.footer {
+  text-align: center;
+}
+.footer p { color: #6B7280; font-size: 10pt; margin: 0 0 6pt 0; }
+.footer .highlight { color: #60A5FA; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="main">
+  <h1>Bringing It All Together</h1>
+  <div class="summary">
+    <div class="summary-item blue">
+      <h3>Career Clarity</h3>
+      <p>5 Whys methodology for discovering root motivations and life direction</p>
+    </div>
+    <div class="summary-item purple">
+      <h3>Data Extraction</h3>
+      <p>Pull insights from vision boards, task managers, journals, and goals</p>
+    </div>
+    <div class="summary-item green">
+      <h3>Daily System</h3>
+      <p>5 slash commands for morning priorities, updates, and evening reflection</p>
+    </div>
+    <div class="summary-item orange">
+      <h3>Continuous Learning</h3>
+      <p>ACT-LEARN-REUSE cycle for improving predictions and recommendations</p>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Framework components work independently or together for maximum flexibility.</p>
+    <p class="highlight">Start with what resonates. Iterate as clarity deepens.</p>
+  </div>
+</div>
+</body>
+</html>

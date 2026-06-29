@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #F8FAFC; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #22C55E;
+  padding: 15pt 30pt;
+}
+.header h1 { color: #FFFFFF; font-size: 24pt; margin: 0; }
+.content {
+  flex: 1;
+  padding: 10pt 30pt 40pt 30pt;
+  display: flex;
+  gap: 15pt;
+}
+.col {
+  flex: 1;
+}
+.col h2 { color: #1F2937; font-size: 12pt; margin: 0 0 6pt 0; }
+.project {
+  background: #FFFFFF;
+  border-radius: 5pt;
+  padding: 6pt 8pt;
+  margin-bottom: 5pt;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8pt;
+}
+.project-dot {
+  width: 8pt;
+  height: 8pt;
+  border-radius: 50%;
+}
+.project p { color: #374151; font-size: 9pt; margin: 0; }
+.project .emoji { font-size: 10pt; }
+.matrix {
+  background: #FFFFFF;
+  border-radius: 6pt;
+  padding: 8pt;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.matrix h3 { color: #1F2937; font-size: 10pt; margin: 0 0 6pt 0; }
+.quadrant {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4pt;
+}
+.q-box {
+  padding: 5pt;
+  border-radius: 3pt;
+  text-align: center;
+}
+.q1 { background: #FEE2E2; }
+.q2 { background: #DCFCE7; }
+.q3 { background: #FEF3C7; }
+.q4 { background: #F3F4F6; }
+.q-box h4 { font-size: 8pt; margin: 0 0 2pt 0; }
+.q-box p { font-size: 7pt; color: #6B7280; margin: 0; }
+.q1 h4 { color: #DC2626; }
+.q2 h4 { color: #16A34A; }
+.q3 h4 { color: #CA8A04; }
+.q4 h4 { color: #6B7280; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>TickTick Integration</h1>
+</div>
+<div class="content">
+  <div class="col">
+    <h2>Monthly Project Structure</h2>
+    <div class="project">
+      <div class="project-dot" style="background: #3B82F6;"></div>
+      <p class="emoji">January - AI + BJJ + Analytics</p>
+    </div>
+    <div class="project">
+      <div class="project-dot" style="background: #A855F7;"></div>
+      <p class="emoji">February - Tools + Data + Training</p>
+    </div>
+    <div class="project">
+      <div class="project-dot" style="background: #22C55E;"></div>
+      <p class="emoji">March - Skills + Reports + Mobile</p>
+    </div>
+    <h2>Life Domain Categories</h2>
+    <div class="project">
+      <div class="project-dot" style="background: #3B82F6;"></div>
+      <p>Work - Projects, Learning, Building</p>
+    </div>
+    <div class="project">
+      <div class="project-dot" style="background: #22C55E;"></div>
+      <p>Health - BJJ, Tests, Wellness</p>
+    </div>
+    <div class="project">
+      <div class="project-dot" style="background: #A855F7;"></div>
+      <p>Relationships - Family, Friends</p>
+    </div>
+    <div class="project">
+      <div class="project-dot" style="background: #F97316;"></div>
+      <p>Play - Fun, Travel, Hobbies</p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="matrix">
+      <h3>Eisenhower Matrix Prioritization</h3>
+      <div class="quadrant">
+        <div class="q-box q1">
+          <h4>Q1: DO FIRST</h4>
+          <p>Urgent + Important</p>
+        </div>
+        <div class="q-box q2">
+          <h4>Q2: SCHEDULE</h4>
+          <p>Important, Not Urgent</p>
+        </div>
+        <div class="q-box q3">
+          <h4>Q3: DELEGATE</h4>
+          <p>Urgent, Not Important</p>
+        </div>
+        <div class="q-box q4">
+          <h4>Q4: ELIMINATE</h4>
+          <p>Neither</p>
+        </div>
+      </div>
+    </div>
+    <h2>MCP Capabilities</h2>
+    <div class="project">
+      <p>get_user_projects - List all projects</p>
+    </div>
+    <div class="project">
+      <p>get_project_with_data - Tasks with details</p>
+    </div>
+    <div class="project">
+      <p>create_task / update_task - Modify tasks</p>
+    </div>
+    <div class="project">
+      <p>complete_task - Mark done</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

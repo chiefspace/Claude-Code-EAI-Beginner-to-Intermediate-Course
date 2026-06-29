@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #0A0A0F; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  background: #0A0A0F; font-family: Arial, sans-serif;
+  display: flex; flex-direction: column;
+}
+.header {
+  background: #A855F7;
+  padding: 12pt 30pt;
+}
+.content {
+  flex: 1;
+  padding: 20pt 30pt;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12pt;
+}
+.opp-card {
+  background: #1A1A2E;
+  border: 2pt solid #30363D;
+  border-radius: 8pt;
+  padding: 15pt;
+  display: flex;
+  flex-direction: column;
+}
+.opp-card.featured {
+  border-color: #22C55E;
+  border-width: 3pt;
+}
+.opp-number {
+  font-size: 32pt;
+  font-weight: bold;
+  margin-bottom: 5pt;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1 style="font-size: 24pt; color: #FFFFFF; margin: 0;">The 6 Opportunities</h1>
+</div>
+<div class="content">
+  <div class="opp-card featured">
+    <p class="opp-number" style="color: #22C55E; margin: 0;">1</p>
+    <p style="font-size: 14pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">BJJ Intelligence</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">Skool community for BJJ + AI fusion</p>
+    <p style="font-size: 9pt; color: #22C55E; margin-top: auto; padding-top: 10pt;">RECOMMENDED</p>
+  </div>
+  <div class="opp-card">
+    <p class="opp-number" style="color: #F97316; margin: 0;">2</p>
+    <p style="font-size: 14pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">AI Lunchbox</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">Creative AI workflows community</p>
+    <p style="font-size: 9pt; color: #F97316; margin-top: auto; padding-top: 10pt;">DEFERRED</p>
+  </div>
+  <div class="opp-card">
+    <p class="opp-number" style="color: #EF4444; margin: 0;">3</p>
+    <p style="font-size: 14pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">Jasen Partnership</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">50/50 AI content community</p>
+    <p style="font-size: 9pt; color: #EF4444; margin-top: auto; padding-top: 10pt;">DECLINE</p>
+  </div>
+  <div class="opp-card">
+    <p class="opp-number" style="color: #3B82F6; margin: 0;">4</p>
+    <p style="font-size: 14pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">AI Foundations</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">Current employer</p>
+    <p style="font-size: 9pt; color: #3B82F6; margin-top: auto; padding-top: 10pt;">MAINTAIN</p>
+  </div>
+  <div class="opp-card">
+    <p class="opp-number" style="color: #3B82F6; margin: 0;">5</p>
+    <p style="font-size: 14pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">Freelance Clients</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">Direct client work</p>
+    <p style="font-size: 9pt; color: #3B82F6; margin-top: auto; padding-top: 10pt;">PURSUE</p>
+  </div>
+  <div class="opp-card">
+    <p class="opp-number" style="color: #A855F7; margin: 0;">6</p>
+    <p style="font-size: 14pt; color: #FFFFFF; font-weight: bold; margin: 5pt 0;">Canada Speaking</p>
+    <p style="font-size: 10pt; color: #94A3B8; margin: 0;">Paid speaking gig - March</p>
+    <p style="font-size: 9pt; color: #A855F7; margin-top: auto; padding-top: 10pt;">PREPARE</p>
+  </div>
+</div>
+</body>
+</html>

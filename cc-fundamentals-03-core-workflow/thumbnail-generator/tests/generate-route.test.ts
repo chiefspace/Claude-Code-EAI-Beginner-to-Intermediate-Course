@@ -1,4 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import sharp from "sharp";
 
 const generateContent = vi.fn();
@@ -32,6 +35,17 @@ async function post(form: FormData) {
   const { POST } = await import("@/app/api/generate/route");
   return POST(new Request("http://localhost/api/generate", { method: "POST", body: form }));
 }
+
+let dataDir: string;
+
+beforeAll(async () => {
+  dataDir = await mkdtemp(path.join(tmpdir(), "thumbgen-route-"));
+  process.env.THUMBNAIL_DATA_DIR = dataDir;
+});
+
+afterAll(async () => {
+  await rm(dataDir, { recursive: true, force: true });
+});
 
 beforeEach(() => {
   vi.resetModules();
@@ -91,18 +105,25 @@ describe("POST /api/generate", () => {
     expect(body.results).toHaveLength(3);
   });
 
-  it("rejects a sixth character reference with a clear message, not a 500", async () => {
+  it("drops a sixth character reference and reports it instead of failing", async () => {
+    generateContent.mockResolvedValue(imageResponse(await pngBase64()));
+
     const form = new FormData();
     form.set("title", "Hi");
+    form.set("variations", "1");
     for (let i = 0; i < 6; i++) {
       form.append("images", file(`face-${i}.jpg`));
       form.append("roles", "character");
     }
 
     const res = await post(form);
-    expect(res.status).toBe(400);
-    expect((await res.json()).error).toContain("max 5");
-    expect(generateContent).not.toHaveBeenCalled();
+    expect(res.status).toBe(200);
+    expect((await res.json()).warnings).toContain(
+      "Using 5 of 6 face references — the model caps character references at 5."
+    );
+
+    const parts = generateContent.mock.calls[0][0].contents[0].parts;
+    expect(parts.filter((p: { inlineData?: unknown }) => p.inlineData)).toHaveLength(5);
   });
 
   it("rejects a non-image upload", async () => {
@@ -153,6 +174,112 @@ describe("POST /api/generate", () => {
     const text = generateContent.mock.calls[0][0].contents[0].parts[0].text;
     expect(text).toContain("brighter background");
     expect(text).toContain("Edit the attached");
+  });
+
+
+  it("injects a saved persona as character references, ordered first", async () => {
+    generateContent.mockResolvedValue(imageResponse(await pngBase64()));
+
+    const { createPersona } = await import("@/lib/personas");
+    const { persona } = await createPersona({
+      name: "Ben",
+      note: "a man in his 40s with a short beard",
+      images: [
+        { bytes: Buffer.from([1, 2, 3]), mimeType: "image/jpeg" },
+        { bytes: Buffer.from([4, 5, 6]), mimeType: "image/jpeg" },
+      ],
+    });
+
+    const form = new FormData();
+    form.set("title", "Hi");
+    form.set("variations", "1");
+    form.set("personaId", persona.id);
+    form.append("images", file("logo.png", "image/png"));
+    form.append("roles", "object");
+
+    const res = await post(form);
+    expect(res.status).toBe(200);
+
+    const parts = generateContent.mock.calls[0][0].contents[0].parts;
+    const images = parts.filter((p: { inlineData?: unknown }) => p.inlineData);
+    expect(images).toHaveLength(3);
+    // Persona faces lead, the uploaded logo follows.
+    expect(images.slice(0, 2).every((p: { inlineData: { mimeType: string } }) =>
+      p.inlineData.mimeType === "image/jpeg")).toBe(true);
+    expect(images[2].inlineData.mimeType).toBe("image/png");
+
+    expect(parts[0].text).toContain("Image 1: a person");
+    expect(parts[0].text).toContain("a man in his 40s with a short beard");
+  });
+
+  it("reports a persona that has been deleted rather than generating without it", async () => {
+    const form = new FormData();
+    form.set("title", "Hi");
+    form.set("personaId", "gone");
+
+    const res = await post(form);
+    expect(res.status).toBe(404);
+    expect((await res.json()).error).toContain("no longer exists");
+    expect(generateContent).not.toHaveBeenCalled();
+  });
+
+  it("lets uploaded faces outrank persona faces and says what it dropped", async () => {
+    generateContent.mockResolvedValue(imageResponse(await pngBase64()));
+
+    const { createPersona } = await import("@/lib/personas");
+    const { persona } = await createPersona({
+      name: "Crowded",
+      note: "a person",
+      images: Array.from({ length: 5 }, (_, i) => ({
+        bytes: Buffer.from([i]),
+        mimeType: "image/jpeg" as const,
+      })),
+    });
+
+    const form = new FormData();
+    form.set("title", "Hi");
+    form.set("variations", "1");
+    form.set("personaId", persona.id);
+    for (let i = 0; i < 3; i++) {
+      form.append("images", file(`upload-${i}.jpg`));
+      form.append("roles", "character");
+    }
+
+    const res = await post(form);
+    const body = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(body.warnings).toContain(
+      "Using 5 of 8 face references — the model caps character references at 5."
+    );
+  });
+
+  it("regenerates at 9:16 and normalizes to Shorts dimensions", async () => {
+    generateContent.mockResolvedValue(imageResponse(await pngBase64()));
+
+    const form = new FormData();
+    form.set("title", "Hi");
+    form.set("variations", "1");
+    form.set("format", "9:16");
+
+    const body = await (await post(form)).json();
+
+    expect(generateContent.mock.calls[0][0].config.imageConfig.aspectRatio).toBe("9:16");
+    expect(body.results[0]).toMatchObject({ width: 1080, height: 1920, aspectRatio: "9:16" });
+  });
+
+  it("falls back to 16:9 for an unknown format", async () => {
+    generateContent.mockResolvedValue(imageResponse(await pngBase64()));
+
+    const form = new FormData();
+    form.set("title", "Hi");
+    form.set("variations", "1");
+    form.set("format", "3:2");
+
+    const body = await (await post(form)).json();
+
+    expect(generateContent.mock.calls[0][0].config.imageConfig.aspectRatio).toBe("16:9");
+    expect(body.results[0]).toMatchObject({ width: 1280, height: 720 });
   });
 
   it("requires either a reference image or a headline", async () => {

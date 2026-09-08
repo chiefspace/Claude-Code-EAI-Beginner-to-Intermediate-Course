@@ -1,16 +1,59 @@
 import { randomUUID } from "node:crypto";
 import { generateThumbnail, MissingApiKeyError, type ImagePart } from "@/lib/gemini";
 import { normalize } from "@/lib/normalize";
-import type { NormalizedImage } from "@/lib/spec";
+import { DEFAULT_ASPECT_RATIO, isAspectRatio, type NormalizedImage } from "@/lib/spec";
+import type { RefOrigin } from "@/lib/models";
 import { buildPrompt, buildRefinePrompt, VARIATION_HINTS } from "@/lib/prompt";
-import { isRole, orderAndValidate, RefLimitError, type Role } from "@/lib/refs";
+import { isRole, type Role } from "@/lib/refs";
+import { describeDropped, resolveRefs } from "@/lib/resolveRefs";
+import { getPersona } from "@/lib/personas";
+import { getStyle } from "@/lib/styles";
+import { describeBrandKit, getBrandKit } from "@/lib/brandKit";
+import { readImage } from "@/lib/refStore";
+import { imageFiles, validateUpload, UploadError } from "@/lib/uploads";
 
 export const maxDuration = 120;
 
-const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+type RouteRef = {
+  role: Role;
+  origin: RefOrigin;
+  label: string;
+  load: () => Promise<ImagePart>;
+};
 
-type Ref = { role: Role; file: File };
+function fromFile(file: File, role: Role): RouteRef {
+  return {
+    role,
+    origin: "upload",
+    label: file.name,
+    load: async () => ({
+      inlineData: {
+        mimeType: file.type,
+        data: Buffer.from(await file.arrayBuffer()).toString("base64"),
+      },
+    }),
+  };
+}
+
+function fromStored(
+  id: string,
+  role: Role,
+  origin: RefOrigin,
+  label: string
+): RouteRef {
+  return {
+    role,
+    origin,
+    label,
+    load: async () => {
+      const image = await readImage(id);
+      if (!image) throw new Error(`Saved reference "${label}" is missing from disk.`);
+      return {
+        inlineData: { mimeType: image.mimeType, data: image.bytes.toString("base64") },
+      };
+    },
+  };
+}
 
 function bad(error: string, status = 400) {
   return Response.json({ error }, { status });
@@ -30,44 +73,55 @@ export async function POST(req: Request) {
   const creativity = Math.min(Math.max(Number(form.get("creativity") ?? 40) || 0, 0), 100);
   const renderText = form.get("renderText") !== "false";
   const refineInstruction = String(form.get("refineInstruction") ?? "").trim();
+  const personaId = String(form.get("personaId") ?? "").trim();
+  const styleId = String(form.get("styleId") ?? "").trim();
+  const rawFormat = String(form.get("format") ?? "");
+  const aspectRatio = isAspectRatio(rawFormat) ? rawFormat : DEFAULT_ASPECT_RATIO;
 
-  const files = form.getAll("images").filter((f): f is File => f instanceof File);
+  const files = imageFiles(form);
   const rawRoles = form.getAll("roles").map(String);
 
-  const refs: Ref[] = [];
-  for (const [i, file] of files.entries()) {
-    if (file.size > MAX_UPLOAD_BYTES) {
-      return bad(`"${file.name}" is larger than 10MB.`);
-    }
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      return bad(`"${file.name}" is not a JPEG, PNG, or WebP.`);
-    }
-    const role = rawRoles[i];
-    refs.push({ role: role && isRole(role) ? role : "object", file });
-  }
-
-  let ordered: Ref[];
+  const uploads: RouteRef[] = [];
   try {
-    ordered = orderAndValidate(refs);
+    for (const [i, file] of files.entries()) {
+      validateUpload(file);
+      const role = rawRoles[i];
+      uploads.push(fromFile(file, role && isRole(role) ? role : "object"));
+    }
   } catch (err) {
-    if (err instanceof RefLimitError) return bad(err.message);
+    if (err instanceof UploadError) return bad(err.message);
     throw err;
   }
 
-  if (ordered.length === 0 && !title.trim()) {
+  const brandKit = getBrandKit();
+  const persona = personaId ? getPersona(personaId) : null;
+  if (personaId && !persona) return bad("That persona no longer exists.", 404);
+  const style = styleId ? getStyle(styleId) : null;
+  if (styleId && !style) return bad("That style no longer exists.", 404);
+
+  const { refs, dropped } = resolveRefs<RouteRef>({
+    uploads,
+    persona: persona?.images.map((image) =>
+      fromStored(image.id, "character", "persona", `${persona.name} face`)
+    ),
+    style: style?.images.map((image) =>
+      fromStored(image.id, "style", "style", `${style.name} style`)
+    ),
+  });
+
+  if (refs.length === 0 && !title.trim()) {
     return bad("Add at least one reference image or a headline to generate from.");
   }
 
-  const imageParts: ImagePart[] = await Promise.all(
-    ordered.map(async ({ file }) => ({
-      inlineData: {
-        mimeType: file.type,
-        data: Buffer.from(await file.arrayBuffer()).toString("base64"),
-      },
-    }))
-  );
+  let imageParts: ImagePart[];
+  try {
+    imageParts = await Promise.all(refs.map((ref) => ref.load()));
+  } catch (err) {
+    return bad(err instanceof Error ? err.message : "A saved reference could not be read.", 500);
+  }
 
-  const roles = ordered.map((r) => r.role);
+  const roles = refs.map((r) => r.role);
+  const notices = describeDropped(refs, dropped);
   const results: NormalizedImage[] = [];
   const failures: string[] = [];
 
@@ -75,13 +129,17 @@ export async function POST(req: Request) {
     for (let i = 0; i < variations; i++) {
       const prompt = refineInstruction
         ? buildRefinePrompt(refineInstruction)
-        : `${buildPrompt(presetId, title, roles, { creativity, renderText })}\n\n${
-            VARIATION_HINTS[i % VARIATION_HINTS.length]
-          }`;
+        : `${buildPrompt(presetId, title, roles, {
+            creativity,
+            renderText,
+            personaNote: persona?.note,
+            styleDescription: style?.description,
+            brand: describeBrandKit(brandKit),
+          })}\n\n${VARIATION_HINTS[i % VARIATION_HINTS.length]}`;
 
-      const image = await generateThumbnail(prompt, imageParts);
+      const image = await generateThumbnail(prompt, imageParts, aspectRatio);
       if (image) {
-        results.push(await normalize(image.data));
+        results.push(await normalize(image.data, aspectRatio));
       } else {
         failures.push(`Variation ${i + 1} returned no image (it may have been filtered).`);
       }
@@ -94,7 +152,7 @@ export async function POST(req: Request) {
       return Response.json({
         results,
         requestId: randomUUID(),
-        warnings: [...failures, message],
+        warnings: [...notices, ...failures, message],
       });
     }
     return bad(`Generation failed: ${message}`, 502);
@@ -107,5 +165,9 @@ export async function POST(req: Request) {
     );
   }
 
-  return Response.json({ results, requestId: randomUUID(), warnings: failures });
+  return Response.json({
+    results,
+    requestId: randomUUID(),
+    warnings: [...notices, ...failures],
+  });
 }

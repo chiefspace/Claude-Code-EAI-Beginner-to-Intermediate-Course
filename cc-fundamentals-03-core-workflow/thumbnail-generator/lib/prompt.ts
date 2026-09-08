@@ -6,6 +6,12 @@ export type BuildPromptOptions = {
   creativity?: number;
   /** Renders the headline into the image. Off when the canvas overlay is used instead. */
   renderText?: boolean;
+  /** Saved persona descriptor, e.g. "a man in his 40s with a short beard". */
+  personaNote?: string;
+  /** Saved style description. Carries more weight than the style images alone. */
+  styleDescription?: string;
+  /** Brand-kit fragment: channel colours and lettering. */
+  brand?: string;
 };
 
 export const VARIATION_HINTS = [
@@ -47,7 +53,7 @@ export function buildPrompt(
   roles: Role[],
   opts: BuildPromptOptions = {}
 ): string {
-  const { creativity = 40, renderText = true } = opts;
+  const { creativity = 40, renderText = true, personaNote, styleDescription, brand } = opts;
   const preset = getPreset(presetId);
   const trimmedTitle = title.trim();
 
@@ -56,10 +62,20 @@ export function buildPrompt(
       ? `\n\nRender this exact headline text on the image: "${trimmedTitle}". Spell it exactly as written. Use a heavy bold sans-serif, very large, with a strong outline or drop shadow so it stays legible when the image is scaled down to 168 pixels wide. Do not add any other text, captions, watermarks, or logos.`
       : "\n\nDo not render any text on the image. Leave clean, uncluttered space where a headline can be placed later.";
 
+  const persona = personaNote?.trim()
+    ? `\n\nThe person in the character references is ${personaNote.trim()}`
+    : "";
+  const style = styleDescription?.trim()
+    ? `\n\nMatch this channel's established look: ${styleDescription.trim()}`
+    : "";
+
   return [
     "Create a YouTube thumbnail image, 16:9 landscape.",
     preset.fragment,
     describeReferences(roles),
+    persona,
+    style,
+    brand?.trim() ? `\n\n${brand.trim()}` : "",
     describeConsistency(creativity, roles.includes("character")),
     headline,
     "\n\nThe composition must read clearly at small sizes: one obvious focal point, strong contrast, and no fine detail that disappears when scaled down.",

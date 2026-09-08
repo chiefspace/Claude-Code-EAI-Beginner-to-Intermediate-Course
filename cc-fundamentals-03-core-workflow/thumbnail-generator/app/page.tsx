@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PersonaPicker } from "@/components/PersonaPicker";
 import { PresetPicker } from "@/components/PresetPicker";
+import { RecreatePanel } from "@/components/RecreatePanel";
+import { StylePicker } from "@/components/StylePicker";
 import { ResultsGrid } from "@/components/ResultsGrid";
 import { UploadPanel, type Upload } from "@/components/UploadPanel";
-import type { NormalizedImage } from "@/lib/spec";
+import { ASPECT_RATIOS, DEFAULT_ASPECT_RATIO, FORMATS, type AspectRatio, type NormalizedImage } from "@/lib/spec";
+import type { BrandKit, Persona, Style } from "@/lib/models";
+import Link from "next/link";
 import { DEFAULT_PRESET_ID } from "@/lib/presets";
 
 const COST_PER_IMAGE = 0.134;
@@ -16,6 +21,13 @@ export default function Home() {
   const [variations, setVariations] = useState(3);
   const [creativity, setCreativity] = useState(40);
   const [renderText, setRenderText] = useState(true);
+
+  const [personas, setPersonas] = useState<Persona[]>([]);
+  const [styles, setStyles] = useState<Style[]>([]);
+  const [tab, setTab] = useState<"generate" | "recreate">("generate");
+  const [format, setFormat] = useState<AspectRatio>(DEFAULT_ASPECT_RATIO);
+  const [personaId, setPersonaId] = useState("");
+  const [styleId, setStyleId] = useState("");
 
   const [results, setResults] = useState<NormalizedImage[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,6 +42,29 @@ export default function Home() {
       .then((r) => r.json())
       .then((d) => setKeyMissing(!d.keyPresent))
       .catch(() => setKeyMissing(false));
+
+    // Loaded together so brand-kit defaults are only applied when they still resolve to
+    // something that exists — a deleted persona must not be preselected.
+    Promise.all([
+      fetch("/api/personas").then((r) => r.json()),
+      fetch("/api/styles").then((r) => r.json()),
+      fetch("/api/brand").then((r) => r.json()),
+    ])
+      .then(([p, s, b]: [{ personas?: Persona[] }, { styles?: Style[] }, { brandKit: BrandKit }]) => {
+        const loadedPersonas = p.personas ?? [];
+        const loadedStyles = s.styles ?? [];
+        setPersonas(loadedPersonas);
+        setStyles(loadedStyles);
+
+        const { defaultPersonaId, defaultStyleId } = b.brandKit;
+        if (loadedPersonas.some((x) => x.id === defaultPersonaId)) {
+          setPersonaId((cur) => cur || defaultPersonaId!);
+        }
+        if (loadedStyles.some((x) => x.id === defaultStyleId)) {
+          setStyleId((cur) => cur || defaultStyleId!);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   async function post(form: FormData, count: number) {
@@ -55,6 +90,9 @@ export default function Home() {
       form.set("variations", String(variations));
       form.set("creativity", String(creativity));
       form.set("renderText", String(renderText));
+      form.set("personaId", personaId);
+      form.set("styleId", styleId);
+      form.set("format", format);
       for (const u of uploads) {
         form.append("images", u.file);
         form.append("roles", u.role);
@@ -94,6 +132,17 @@ export default function Home() {
           Bring in photos, logos, or style references. Nano Banana Pro rebuilds them as a 16:9
           thumbnail with the subjects&apos; identity intact.
         </p>
+        <nav className="flex gap-3 pt-1 text-xs">
+          <Link href="/personas" className="text-blue-600 underline">
+            Personas
+          </Link>
+          <Link href="/styles" className="text-blue-600 underline">
+            Styles
+          </Link>
+          <Link href="/brand" className="text-blue-600 underline">
+            Brand kit
+          </Link>
+        </nav>
       </header>
 
       {keyMissing && (
@@ -107,6 +156,36 @@ export default function Home() {
         </div>
       )}
 
+      <nav className="flex gap-1 border-b border-neutral-300 dark:border-neutral-700">
+        {(["generate", "recreate"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium capitalize ${
+              tab === t
+                ? "border-blue-600 text-blue-600"
+                : "border-transparent text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </nav>
+
+      {tab === "recreate" ? (
+        <RecreatePanel
+          personas={personas}
+          styles={styles}
+          disabled={keyMissing}
+          onResults={(res, warns, count) => {
+            setResults(res);
+            setWarnings(warns);
+            setError(null);
+            setGenerated((n) => n + count);
+          }}
+        />
+      ) : (
+        <>
       <UploadPanel uploads={uploads} onChange={setUploads} />
 
       <section className="grid gap-4 sm:grid-cols-2">
@@ -130,6 +209,10 @@ export default function Home() {
 
         <PresetPicker value={presetId} onChange={setPresetId} />
 
+        <PersonaPicker personas={personas} value={personaId} onChange={setPersonaId} />
+
+        <StylePicker styles={styles} value={styleId} onChange={setStyleId} />
+
         <div className="space-y-1">
           <label htmlFor="variations" className="text-sm font-semibold">
             Variations: {variations}
@@ -145,6 +228,27 @@ export default function Home() {
           />
           <p className="text-xs text-neutral-500">
             YouTube A/B tests take 3. About ${(variations * COST_PER_IMAGE).toFixed(2)} per run.
+          </p>
+        </div>
+
+        <div className="space-y-1">
+          <label htmlFor="format" className="text-sm font-semibold">
+            Output format
+          </label>
+          <select
+            id="format"
+            value={format}
+            onChange={(e) => setFormat(e.target.value as AspectRatio)}
+            className="w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm dark:border-neutral-700"
+          >
+            {ASPECT_RATIOS.map((r) => (
+              <option key={r} value={r}>
+                {FORMATS[r].label} — {r} ({FORMATS[r].width}×{FORMATS[r].height})
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-neutral-500">
+            Same references and prompt, regenerated at the chosen ratio.
           </p>
         </div>
 
@@ -190,6 +294,9 @@ export default function Home() {
           </span>
         )}
       </div>
+
+        </>
+      )}
 
       {loading && (
         <p className="text-sm text-neutral-500">

@@ -1,11 +1,21 @@
 import sharp from "sharp";
-import { HEIGHT, WIDTH, YOUTUBE_MAX_BYTES, type NormalizedImage } from "@/lib/spec";
+import {
+  DEFAULT_ASPECT_RATIO,
+  FORMATS,
+  YOUTUBE_MAX_BYTES,
+  type AspectRatio,
+  type NormalizedImage,
+} from "@/lib/spec";
 
 const QUALITY_LADDER = [92, 85, 78, 70, 60, 50, 40];
 
-export async function normalize(base64: string): Promise<NormalizedImage> {
+export async function normalize(
+  base64: string,
+  aspectRatio: AspectRatio = DEFAULT_ASPECT_RATIO
+): Promise<NormalizedImage> {
+  const { width, height } = FORMATS[aspectRatio];
   const input = Buffer.from(base64, "base64");
-  const resized = sharp(input).resize(WIDTH, HEIGHT, { fit: "cover", position: "attention" });
+  const resized = sharp(input).resize(width, height, { fit: "cover", position: "attention" });
 
   let output: Buffer | null = null;
   for (const quality of QUALITY_LADDER) {
@@ -18,7 +28,8 @@ export async function normalize(base64: string): Promise<NormalizedImage> {
     dataUrl: `data:image/jpeg;base64,${buffer.toString("base64")}`,
     mimeType: "image/jpeg",
     bytes: buffer.length,
-    width: WIDTH,
-    height: HEIGHT,
+    width,
+    height,
+    aspectRatio,
   };
 }

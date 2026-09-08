@@ -311,3 +311,587 @@ That's the last loose end from this session — everything else is captured in t
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
   ⏵⏵ auto mode on (shift+tab to cycle) · ← for agents · option+click to native select
+
+
+#########################################################################
+#########################################################################
+
+Day two Claude console output - built and committed to github 2026-09-08:
+
+
+
+
+ ▐▛███▛█   Claude Code v2.1.261
+▝▜██████▀  Opus 5 · Claude Pro
+  ▝▝ ▝▝    ~/obsidian-git-vaults/AI-Early-Adopters/PROJECTS/Claude Code Zero-to-Hero/Beginner-to-intermediate-Course
+
+  Updated to latest. Got 56 features, 350 bugfixes, and 141 other changes.
+  code.claude.com/docs/en/changelog for details
+
+▎ Keep working from anywhere
+▎ Check progress or reply to any session from the mobile app, desktop app, or claude.ai. To keep a session in this terminal only, run /remote-control
+
+❯ /EA-pickup
+
+  Listed 2 directories, ran 1 shell command
+
+Given the recent commits mention the thumbnail generator, the relevant handoffs are in cc-fundamentals-03-core-workflow/specs/handoffs/. Let me check that directory.
+
+  Listed 1 directory
+
+The most recent handoff (002) matches the branch name and recent commits. Let me read it.
+
+  Read 1 file, ran 1 shell command
+
+A .env.local now exists in thumbnail-generator/ — worth checking whether an API key is actually in it before assuming step 2 is still blocked.
+
+  Searched for 1 pattern, ran 1 shell command
+
+
+
+The .env.local file exists but the key value is empty — so the visual verification step is still blocked, same as the handoff noted. Here's the pickup summary:
+
+Session Pickup Summary
+
+Handoff: cc-fundamentals-03-core-workflow/specs/handoffs/002-2026-09-06-thumbnail-generator-core.md
+Date: 2026-09-06
+
+Where We Left Off
+
+Part 1 of the YouTube thumbnail generator (Nano Banana Pro / gemini-3-pro-image) is built and fully tested, but the actual image-generation quality has never been verified against a real API call — no GOOGLE_API_KEY has ever been set.
+
+Completed Previously
+
+- Re-researched the market and corrected the reference-limit spec (14 total: 5 character / 6 object / 3 style; persistent personas/styles now standard)
+- Split plan into specs/done/01-thumbnail-generator-core.md (built) and specs/todo/02-thumbnail-generator-consistency-features.md (not started)
+- Built all 4 phases in thumbnail-generator/: typed reference uploads, 5 style presets, 1–6 variations, consistency/creativity control, sharp normalization to 1280×720 JPEG <2MB, download, conversational refine, canvas text overlay, feed-size preview
+- 29 tests passing, lint clean, production build green, verified end-to-end via Playwright (pipeline only — model call was stubbed)
+- Committed as 6516d70 on branch thumbnail-generator-core
+
+Still In Progress
+
+Nothing mid-edit — working tree is clean.
+
+Next Steps
+
+1. Merge thumbnail-generator-core into main (still not merged) — appears unintentional, every prior commit went straight to main
+2. Get a real API key and do a visual pass — this is still blocked. I just checked: .env.local exists at thumbnail-generator/.env.local but GOOGLE_API_KEY is empty. You'll need a key from https://aistudio.google.com/apikey, then run through the manual checklist in specs/done/01-thumbnail-generator-core.md — especially real-selfie identity consistency and headline text accuracy
+3. Build Part 2: /EA-build specs/todo/02-thumbnail-generator-consistency-features.md (Personas, Styles, Recreate, scoring)
+
+Key Files
+
+- lib/gemini.ts — single place model calls happen
+- lib/refs.ts — per-role caps (5/6/3, 14 total)
+- lib/prompt.ts — prompt composition
+- lib/spec.ts — dimension constants (client-safe, no sharp)
+- lib/normalize.ts — sharp quality ladder
+- app/api/generate/route.ts, app/page.tsx
+- tests/ — 29 tests, Gemini mocked
+
+Notes
+
+- Bug fixed during build: TextOverlay.tsx was importing from lib/normalize.ts (pulls in sharp, a native server module) and broke next build — constants moved to lib/spec.ts. Keep client components off lib/normalize.ts.
+- Known rough edge (not fixed, matches spec as written): "Refine this one" discards the other generated variations.
+- vitest.config.mts must keep .mts extension; @rolldown/binding-darwin-arm64 is now an explicit devDependency for Vitest 5.
+
+---
+
+Ready to continue. Would you like me to:
+1. Add your real API key and run the visual verification pass
+2. Merge the branch to main first
+3. Start on Part 2 (/EA-build specs/todo/02-thumbnail-generator-consistency-features.md)
+4. Something else?
+
+✻ Churned for 44s · done 5:50 PM
+
+❯ Merge the branch to main first
+
+The user asked for the merge, so let me check the state before touching anything.
+
+  Ran 1 shell command
+
+Clean tree, and main has no commits the branch lacks — this is a clean fast-forward of 3 commits.
+
+  Merged thumbnail-generator-core, ran 1 shell command
+
+Merged. main fast-forwarded from c38b2b5 to 7aaa2c2 — 42 files, all 3 commits. Clean working tree, no conflicts.
+
+Two follow-ups I've deliberately left alone since both reach beyond your local repo:
+
+1. main is 3 commits ahead of origin/main — not pushed yet.
+2. The thumbnail-generator-core branch still exists, both locally and on origin. The handoff suggested deleting it, but that would need cleaning up on the remote too.
+
+Want me to push main and delete the branch (local + remote), or just push and leave the branch in place?
+
+✻ Worked for 16s · done 5:51 PM
+
+❯ push and leave the branch in place
+
+  Pushed to main, ran 1 shell command
+
+Pushed. main is now in sync with origin/main at 7aaa2c2, and thumbnail-generator-core is untouched — still present locally and on the remote, now pointing at the same commit.
+
+Next step from the handoff is the visual verification pass, which is still blocked on an empty GOOGLE_API_KEY in cc-fundamentals-03-core-workflow/thumbnail-generator/.env.local.
+
+✻ Worked for 10s · done 5:54 PM
+
+※ recap: Picking up the YouTube thumbnail generator: the core app branch is now merged into main and pushed. Next is verifying real generation quality, which needs a GOOGLE_API_KEY added to thumbnail-generator/.env.local. (disable recaps in /config)
+
+❯ start on part 2
+
+Let me read the Part 2 spec.
+
+  Read 1 file
+
+The spec is clear and Phase 1 (persistence + reference resolver) is the load-bearing piece. Since this project builds from plan files via a defined workflow, let me use it.
+
+⏺ Skill(/EA-build)
+Successfully loaded skill · 6 tools allowed · claude-sonnet-5
+
+Let me orient in the Part 1 code I'll be building on.
+
+  Read 2 files, ran 2 shell commands
+
+Now I'll build Phase 1. Installing the persistence dependency first.
+
+  Ran 2 shell commands
+Loaded CLAUDE.md
+Loaded AGENTS.md
+
+The project's AGENTS.md requires checking the bundled Next.js docs before writing code, since this version has breaking changes.
+
+  Ran 3 shell commands
+
+better-sqlite3 is auto-externalized like sharp, so no config change needed. Let me check the route handler conventions for this Next version.
+
+  Ran 2 shell commands
+
+Now writing the persistence layer.
+
+  Read 3 files
+
+Adding the text-model call to lib/gemini.ts — the project's designated single place for model calls. Let me verify the SDK's response shape first.
+
+  Searched for 1 pattern, ran 1 shell command
+
+Now the persona and style stores.
+
+  Read 2 files
+
+Now the reference resolver — the load-bearing piece of this phase.
+
+  Read 1 file
+
+Let me verify the dynamic-route params convention for this Next version before writing the CRUD endpoints.
+
+  Searched for 1 pattern, ran 1 shell command
+
+Now the CRUD endpoints.
+
+  Read 1 file, ran 1 shell command
+
+Now updating the generate route to route all reference assembly through the resolver.
+
+  Searched for 2 patterns, read 1 file
+
+The resolver fully supersedes the old throwing validator, so I'll remove it rather than leave dead code.
+
+  Read 1 file, ran 1 shell command
+
+Now the tests for the resolver and the stores.
+
+  Ran 1 shell command
+
+Now the store round-trip tests, including on-disk cleanup.
+
+  Ran 1 shell command
+
+Native module segfaulting in the vitest worker. Let me check whether better-sqlite3 works standalone first.
+
+  Listed 1 directory, ran 3 shell commands
+
+better-sqlite3 v13's prebuilt binary segfaults on this machine's Node v22.3.0 (the same Node that already triggers EBADENGINE warnings for vitest and rolldown here). Let me try rebuilding it against the local Node.
+
+  Ran 2 shell commands
+
+The rebuild silently no-op'd (v13 ships prebuilds only). Let me try an older release whose prebuilds target this Node.
+
+  Ran 1 shell command
+
+better-sqlite3@11 works. Re-running the store tests.
+
+  Ran 1 shell command
+
+Now updating the generate-route tests: the over-cap behavior intentionally changed, plus a persona integration test.
+
+  Ran 2 shell commands
+
+All 49 tests pass. Now lint, typecheck, and production build.
+
+  Ran 3 shell commands
+
+Phase 1 is green. Let me record the dependency constraint in the README, since it's an environment gotcha.
+
+  Searched for 1 pattern, ran 1 shell command
+
+Phase 1 is complete and verified — 49 tests, clean typecheck, green build. Two things worth flagging before I continue:
+
+- better-sqlite3 v13 segfaults on this machine's Node v22.3.0, so I pinned it to v11 (documented in the README). Upgrading to Node 22.12+ would let you move back to v13 and also clear the existing vitest/rolldown engine warnings.
+- Part 1 behavior intentionally changed: over-supplying references used to return a 400 ("max 5"). Per Part 2's spec it now degrades — keeps the highest-priority refs and reports the rest in warnings. I updated that Part 1 test to match.
+
+Moving to Phase 2 (the management UI). Let me match the existing component conventions.
+
+  Ran 2 shell commands
+
+Now building the Phase 2 UI components.
+
+  Read 2 files
+
+Now the management pages.
+
+  Read 1 file, ran 1 shell command
+
+Now wiring the pickers into the generate page.
+
+  Ran 3 shell commands
+
+Phase 2 builds clean. Let me verify the UI actually works in a browser. First, checking what browser tooling is available.
+
+No browser MCP tool. Let me check whether Playwright is available, since Part 1 was verified with it.
+
+  Ran 1 shell command
+
+Playwright's CLI is available but has no browser installed. Starting the dev server and fetching Chromium in parallel.
+
+  Ran 3 shell commands
+
+keyPresent: true — but the .env.local value was empty. Let me check where that key is coming from before anything triggers a paid call.
+
+  Listed 1 directory
+
+.env.local was modified minutes ago and is now 281 bytes — it looks like you added a real key while I was working. Let me confirm without printing it.
+
+  Read 1 file
+
+A real API key is now in .env.local, so image generation would cost real money (~$0.134/image). I'll verify the Phase 2 UI — which only makes cheap text-model calls for the persona/style descriptions — and won't trigger image generation without asking you.
+
+  Ran 2 shell commands
+
+Playwright was only in the npx cache. Installing it into the scratchpad so I don't touch the project's dependencies.
+
+  Ran 2 shell commands
+
+Persona/style CRUD, previews, and description editing all work with no console errors. But the model-extracted note and description both came back empty — my fallback is masking a failing text call. Let me find out why.
+
+  Ran 1 shell command
+
+gemini-3-pro doesn't exist — the spec assumed that name. Let me list what the API actually offers.
+
+  Ran 2 shell commands
+
+Important finding: gemini-3-pro-image (Part 1's image model) does exist, but there is no gemini-3-pro text model. Let me pick and verify a real text model that handles image input.
+
+  Ran 1 shell command
+
+Both candidates hit transient limits (503 high demand / 429 quota). Let me test the rest of the flash tier to find one that actually responds.
+
+  Ran 1 shell command
+
+gemini-3.6-flash works. Fixing the model id — and the silent catch that hid this failure as "no description".
+
+  Ran 3 shell commands
+
+Now updating the tests and forms for the new return shape.
+
+  Ran 3 shell commands
+
+All 49 tests pass. Re-verifying in the browser now that the model id is correct — the note and description should populate this time.
+
+  Ran 2 shell commands
+
+Still empty. Let me check the server log — my new console.error should say why.
+
+  Ran 1 shell command
+
+Found it — a real bug my unit tests missed. The route sends note: "", and "" ?? extracted.text returns "" because ?? only falls back on null/undefined. So the extracted note was always discarded.
+
+  Ran 1 shell command
+
+Adding a regression test for that bug, then re-verifying.
+
+  Ran 2 shell commands
+
+Model calls now work — the note correctly reports my test images are solid colour squares (they are). The empty dropdown reading was my script racing the fetch; let me confirm with a proper wait.
+
+  Ran 1 shell command
+
+Let me look at the screenshots to confirm the pages actually render well.
+
+  Read 1 file
+
+The face previews aren't rendering — there's blank space where they should be. Let me check the image endpoint directly.
+
+  Ran 1 shell command
+
+Endpoint serves a valid JPEG, so this may just be my screenshot firing before images loaded. Let me re-check with a proper wait.
+
+  Ran 1 shell command
+
+All three images load and render at 64×64 — it was screenshot timing. Confirming visually.
+
+  Read 1 file
+
+Previews render correctly. Checking the generate page.
+
+  Read 1 file
+
+Phases 1 and 2 are verified working in the browser. Moving to Phase 3 (Recreate). Starting with the YouTube URL parsing, which is pure logic and easy to test.
+
+  Read 1 file, ran 1 shell command
+
+Now the recreate route — describe first, then generate from the (editable) breakdown.
+
+  Ran 1 shell command
+
+Now tests for the YouTube parsing and the recreate route.
+
+  Ran 2 shell commands
+
+All 7 pass. Now the Recreate UI panel.
+
+  Read 1 file
+
+Now wiring the Recreate tab into the main page.
+
+  Ran 2 shell commands
+
+Build green. Let me verify the Recreate tab in the browser using the describe step (a cheap text call) — I'll leave the paid rebuild step alone.
+
+  Ran 1 shell command
+
+Recreate works against a real YouTube video. Let me verify the identity-exclusion boundary actually holds in the output — that's a spec requirement.
+
+  Ran 1 shell command
+
+Identity exclusion holds — purely structural, no name, no headline transcription, no brand marks. Phase 3 done. Starting Phase 4; let me check two things first.
+
+  Searched for 1 pattern
+
+Phase 4. Starting with multi-format support, which touches the spec/normalize/gemini chain.
+
+  Ran 1 shell command
+
+Now the brand kit, score, and titles.
+
+  Ran 2 shell commands
+
+Now wiring brand kit and format into the generate route.
+
+  Ran 1 shell command
+
+Now the Phase 4 UI. Let me check ResultsGrid before extending it.
+
+  Read 2 files
+
+Now wiring scoring and titles into ResultsGrid.
+
+  Ran 1 shell command
+
+Now the brand kit page and the format picker.
+
+  Ran 2 shell commands
+
+Now tests for the Phase 4 routes, especially the defensive JSON parsing the spec calls for.
+
+  Ran 1 shell command
+
+Let me fix that dynamic-import warning and add brand kit + format tests.
+
+  Ran 1 shell command
+
+Adding a multi-format test, then running the full suite and build.
+
+  Ran 1 shell command
+
+All 83 tests pass and the build is green. Verifying Phase 4 in the browser — brand kit first (no model calls), then the score/titles routes against the real model.
+
+  Ran 1 shell command
+
+"Saved" showed but nothing persisted. Let me test the brand API directly.
+
+  Ran 1 shell command
+
+The API is correct — the bug is a race in my page: the initial /api/brand fetch resolves after the user starts editing and clobbers their changes. Fixing by not rendering the form until load settles.
+
+  Ran 1 shell command
+
+The generate page has the same race, plus it can hand back a default persona that's since been deleted. Fixing both.
+
+  Ran 2 shell commands
+
+Colours partly saved — likely my script clicking before React flushed the input state. Let me confirm with realistic typing delays.
+
+  Ran 1 shell command
+
+Colour add/remove/persist all work — it was my script's timing. Now verifying score and titles against the real model with a synthetic thumbnail.
+
+  Ran 1 shell command
+
+Scoring works — five dimensions, genuinely specific notes, correct weakest-dimension pick. Now titles.
+
+  Ran 1 shell command
+
+Titles work too. Let me update the README, clean up my test data, and finalize.
+
+  Ran 4 shell commands
+
+All four phases are built, verified, and the plan has moved to specs/done/.
+
+Build Complete
+
+Plan: specs/todo/02-thumbnail-generator-consistency-features.md → moved to specs/done/
+Status: SUCCESS — 83 tests passing (was 29), lint clean, production build green
+
+What got built
+                                                                                                                                                   ✔ Update installed · Restart to update
+
+
+
+
+- Phase 1 — SQLite persistence (lib/db.ts, personas.ts, styles.ts, refStore.ts) with images on disk under .data/, plus lib/resolveRefs.ts: merges saved personas/styles with per-request uploads inside the 5/6/3/14 caps, uploads outranking saved refs, dropping and reporting rather than erroring.
+- Phase 2 — /personas and /styles management pages, pickers on the generate page, dropped-ref notices surfacing through the existing warnings list.
+- Phase 3 — Recreate tab. Describe-then-rebuild via a real YouTube fetch with the maxres→sd→hq fallback; the reference never reaches the image model.
+- Phase 4 — Scoring (5 dimensions + "Apply top fix"), title generation, brand kit page, and 16:9 / 9:16 / 1:1 output.
+
+Things you should know
+
+1. There is no gemini-3-pro text model — the spec assumed one and it 404s. I checked ListModels and switched the text tasks to gemini-3.6-flash. Separately, this confirms gemini-3-pro-image does exist, so Part 1's image model id is valid.
+2. better-sqlite3 pinned to v11 — v13's prebuilt binary segfaults on this machine's Node v22.3.0. Node 22.12+ would let you move back to v13 and clear the existing vitest/rolldown engine warnings.
+3. Part 1 behavior intentionally changed — over-supplying references used to 400 with "max 5"; it now degrades and reports, per Part 2's success criteria. I updated that Part 1 test.
+4. Two real bugs found by browser testing, not by tests — "" ?? extracted silently discarded every generated persona note (?? doesn't fall back on empty string), and the brand page's initial fetch could clobber edits you'd already typed. Both fixed, with a regression test for the first.
+
+Verified against the real API
+
+Scoring, titles, persona/style description extraction, and Recreate's composition breakdown all work — and the breakdown correctly excluded the source's identity and brand marks on a real video.
+
+Not verified
+
+Image generation itself. Every path that calls gemini-3-pro-image costs about $0.134/image, so I didn't run one. That leaves identity consistency, text rendering, Recreate's rebuild step, and the 9:16/1:1 exports still unproven — the same gap Part 1 had.
+
+Two things for you to decide: whether I should spend a few dollars actually generating (say one 3-variation run plus one Recreate) to close that gap, and whether to commit this work — I've left it uncommitted on main.
+
+✻ Sautéed for 28m 32s · done 6:31 PM
+
+❯ commit this work
+
+  Ran 1 shell command
+
+Staging the app changes and the plan move. Let me add them explicitly rather than with a broad git add.
+
+  Ran 1 shell command
+
+Staged set looks right — no .env.local, no .data/. Committing.
+
+  Committed 1b56f68
+PostToolUse:Bash says: Tip: Run /ultrareview before you push to catch bugs with a cloud-based multi-agent review — 3 free reviews left.
+
+Committed as 1b56f68 on main — 50 files, +3913/−137, working tree clean. No .env.local or .data/ included.
+
+I haven't pushed, since last time you asked for that as a separate step. Want me to push to origin/main?
+
+The one thing still open is that image generation remains unverified — every gemini-3-pro-image path costs ~$0.134/image, so I didn't run one. Say the word if you want me to spend a few dollars closing that gap.
+
+✻ Sautéed for 29s · done 6:32 PM
+
+❯ push to origin main
+
+  Pushed to main
+
+Pushed. main is in sync with origin/main at 1b56f68.
+
+Part 2 is done and shipped: all four phases, 83 tests, plan moved to specs/done/. The only outstanding gap is that image generation itself has never been run against the real API — that's the same blocker Part 1 carried, and it's now the last thing standing between this and a genuine visual pass.
+
+✻ Worked for 24s · done 6:33 PM
+
+❯ ok, go ahead and run the image generation
+
+Approved. I'll go incrementally so nothing is wasted — one image first to confirm the model call works at all, then widen.
+
+  Ran 1 shell command
+
+Important: this isn't a transient rate limit. The key is on the free tier, and gemini-3-pro-image has limit: 0 there — zero requests per day. No money was spent. Let me check whether any image model does have free-tier quota.
+
+  Ran 2 shell commands
+
+I stopped rather than burning retries — this is a hard blocker, not a transient one.
+
+Image generation is unavailable on this API key
+
+Every image model returns HTTP 429 with limit: 0 on the free tier:
+
+┌────────────────────────────┬──────────────┐
+│           Model            │    Result    │
+├────────────────────────────┼──────────────┤
+│ gemini-3-pro-image         │ 429, limit 0 │
+├────────────────────────────┼──────────────┤
+│ gemini-3-pro-image-preview │ 429, limit 0 │
+├────────────────────────────┼──────────────┤
+│ gemini-3.1-flash-image     │ 429, limit 0 │
+├────────────────────────────┼──────────────┤
+│ gemini-2.5-flash-image     │ 429, limit 0 │
+├────────────────────────────┼──────────────┤
+│ gemini-3.6-flash (text)    │ ✅ works     │
+└────────────────────────────┴──────────────┘
+
+The quota violations name GenerateRequestsPerDayPerProjectPerModel-FreeTier with a limit of 0 — so it's zero per day, not a per-minute throttle. The "retry in 56s" hint in the error is misleading; waiting won't help. Text models have real free-tier quota, which is why scoring, titles, persona descriptions, and Recreate's composition breakdown all worked earlier.
+
+Nothing was spent — every call was rejected before doing work.
+
+This also explains the Part 1 blocker: it was never a missing key, it's that image generation needs billing enabled on the Google Cloud project behind the key. To unblock, enable billing at console.cloud.google.com/billing for that project (or use a key from a project that already has it), then I can run the visual pass immediately — the code path is otherwise fully wired and covered by mocked tests.
+
+Everything else stands: committed and pushed at 1b56f68, 83 tests green.
+
+✻ Baked for 1m 2s · done 6:35 PM
+
+※ recap: Goal was Part 2 of the thumbnail generator: personas, styles, Recreate, and scoring. All four phases are built, tested, committed and pushed. The visual check is blocked because image generation needs billing enabled on your Google Cloud project. (disable recaps in /config)
+
+
+
+❯ /EA-handoff
+
+  Ran 2 shell commands
+
+Next handoff is 003. Writing it now.
+
+  Ran 1 shell command
+
+⏺ Write(~/obsidian-git-vaults/AI-Early-Adopters/PROJECTS/Claude Code Zero-to-Hero/Beginner-to-intermediate-Course/cc-fundament…/003-2026-09-08-thumbnail-generator-consistency-features.md)
+Wrote 128 lines to ../specs/handoffs/003-2026-09-08-thumbnail-generator-consistency-features.md
+# Session Handoff - 2026-09-08
+
+## Context
+
+Picked up from handoff 002 (Part 1 core build) and built Part 2 in full: persistent Personas
+and Styles, a Recreate flow, and packaging features (scoring, titles, brand kit, multi-format
+export), per `specs/done/02-thumbnail-generator-consistency-features.md`. Also merged and pushed
+the `thumbnail-generator-core` branch that 002 had left unmerged.
+
+## Completed
+… +118 lines
+
+Handoff Created
+
+File: cc-fundamentals-03-core-workflow/specs/handoffs/003-2026-09-08-thumbnail-generator-consistency-features.md
+Number: 003
+Topic: thumbnail-generator-consistency-features
+
+To resume: Run `/pickup` in your next session
+
+Key thing for next time: the real blocker is billing on the Google Cloud project behind GOOGLE_API_KEY — every image model is capped at 0 requests/day on the free tier, while text models work fine on the same key. Once billing's enabled, the actual visual pass (identity consistency, Recreate quality, multi-format output) is the very next step.
+
+✻ Cogitated for 54s · done 6:43 PM
+                                                                                                                                                   ✔ Update installed · Restart to update
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ delete the thumbnail-generator-core branch
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⏵⏵ auto mode on (shift+tab to cycle) · ← for agents

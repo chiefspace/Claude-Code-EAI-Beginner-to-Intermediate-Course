@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter Demo - Visual Validation</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Counter Demo</h1>
+    <p class="subtitle">Visual Validation with Playwright</p>
+
+    <div class="counter-container">
+      <div class="count-display">
+        <span id="count">0</span>
+      </div>
+
+      <div class="controls">
+        <button id="decrement" class="decrement">−</button>
+        <button id="reset" class="reset">Reset</button>
+        <button id="increment" class="increment">+</button>
+      </div>
+    </div>
+
+    <div class="info">
+      <p>This demo has intentional bugs for teaching visual validation.</p>
+      <p>Run <code>/EA-demo-visual</code> to see the agent fix them!</p>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

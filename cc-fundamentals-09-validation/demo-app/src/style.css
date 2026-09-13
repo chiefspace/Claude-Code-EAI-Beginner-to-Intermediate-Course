@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#app {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.counter-container {
+  margin: 40px 0;
+}
+
+.count-display {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+button {
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.decrement {
+  background: #ef4444;
+  color: white;
+}
+
+.decrement:hover {
+  background: #dc2626;
+}
+
+.reset {
+  background: #6b7280;
+  color: white;
+}
+
+.reset:hover {
+  background: #4b5563;
+}
+
+/* BUG #1: Increment button is hidden */
+.increment {
+  background: #10b981;
+  color: white;
+  display: none;  /* ← INTENTIONAL BUG: Remove this line to fix */
+}
+
+.increment:hover {
+  background: #059669;
+}
+
+.info {
+  margin-top: 40px;
+  padding: 20px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.info p {
+  margin: 5px 0;
+}
+
+code {
+  background: #e5e7eb;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #667eea;
+}

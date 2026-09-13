@@ -1,0 +1,12 @@
+{
+  "name": "string-utils-demo",
+  "version": "1.0.0",
+  "description": "Demo project for validated-builder agent - has an intentional bug",
+  "main": "src/string-utils.js",
+  "scripts": {
+    "test": "node tests/string-utils.test.js",
+    "build": "node -e \"const fs=require('fs'); fs.mkdirSync('dist',{recursive:true}); fs.copyFileSync('src/string-utils.js','dist/string-utils.js'); console.log('Build complete')\""
+  },
+  "keywords": [],
+  "license": "MIT"
+}

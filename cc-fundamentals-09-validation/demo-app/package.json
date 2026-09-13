@@ -1,0 +1,17 @@
+{
+  "name": "counter-demo-app",
+  "version": "1.0.0",
+  "description": "Visual validation demo app with intentional bugs",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/counter.test.js"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "keywords": ["demo", "validation", "visual-testing"],
+  "license": "MIT"
+}

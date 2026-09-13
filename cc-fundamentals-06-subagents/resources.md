@@ -2,6 +2,7 @@
 
 ## Official Docs
 - [Claude Code Task Tool](https://docs.anthropic.com/en/docs/claude-code/task-tool)
+    |--------> [New link](https://code.claude.com/docs/en/tools-reference)
 - [Claude Code Hooks](https://docs.anthropic.com/en/docs/claude-code/hooks)
 
 ## Subagent Types

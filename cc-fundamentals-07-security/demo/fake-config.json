@@ -1,0 +1,28 @@
+{
+  "app_name": "demo-application",
+  "version": "1.0.0",
+  "services": {
+    "anthropic": {
+      "api_key": "sk-ant-FAKE00-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "model": "claude-sonnet-4-20250514"
+    },
+    "openai": {
+      "api_key": "sk-FAKE1234567890abcdefghijklmnopqrstuvwxyz1234567890ab",
+      "model": "gpt-4"
+    },
+    "github": {
+      "token": "ghp_FAKE1234567890abcdefghijklmnopqrstuv"
+    },
+    "aws": {
+      "access_key_id": "AKIAFAKE1234567890AB",
+      "secret_access_key": "FAKE/abcdefghij1234567890KLMNOPQRSTUVWXYZ"
+    },
+    "stripe": {
+      "stripe_key": "fake_NOTREAL_xxxxxxxxxxxxxxxxxxxx"
+    },
+    "auth": {
+      "header": "Bearer eyFAKE.token.abcdefghijklmnopqrstuvwxyz1234567890"
+    }
+  },
+  "note": "THIS FILE CONTAINS FAKE CREDENTIALS FOR DEMO PURPOSES ONLY"
+}

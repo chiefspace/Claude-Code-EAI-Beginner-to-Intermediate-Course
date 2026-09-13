@@ -1,0 +1,163 @@
+# =============================================================================
+# SECURITY PATTERNS - Starter Configuration
+# =============================================================================
+# This file defines what the security hooks protect against.
+# Customize by adding/removing patterns for your needs.
+#
+# Pattern types:
+#   - bashToolPatterns: Regex patterns for dangerous commands
+#   - zeroAccessPaths: Files that can NEVER be accessed
+#   - readOnlyPaths: Files that can be read but not modified
+#   - noDeletePaths: Files that can be modified but not deleted
+#
+# Special options:
+#   - ask: true  → Ask for confirmation instead of blocking
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# BASH COMMAND PATTERNS
+# -----------------------------------------------------------------------------
+# These regex patterns match against bash commands.
+# If matched, the command is blocked (or confirmation requested if ask: true)
+# -----------------------------------------------------------------------------
+
+bashToolPatterns:
+
+  # === FILE DESTRUCTION ===
+  # Commands that delete files or directories
+
+  - pattern: '\brm\s+(-[^\s]*)*-[rRf]'
+    reason: rm with recursive or force flags could delete entire directories
+
+  - pattern: '\bfind\b.*-delete\b'
+    reason: find with -delete can remove many files silently
+
+  - pattern: '\bshred\b'
+    reason: shred permanently destroys files beyond recovery
+
+  # === GIT DESTRUCTIVE ===
+  # Commands that can destroy git history or lose changes
+
+  - pattern: '\bgit\s+push\b.*--force\b'
+    reason: force push can overwrite remote history permanently
+
+  - pattern: '\bgit\s+reset\b.*--hard\b'
+    reason: hard reset discards all uncommitted changes
+
+  - pattern: '\bgit\s+clean\b.*-fd'
+    reason: removes all untracked files and directories
+
+  - pattern: '\bgit\s+checkout\s+\.'
+    reason: discards all unstaged changes
+    ask: true  # Ask instead of block - sometimes intentional
+
+  - pattern: '\bgit\s+branch\b.*-D\b'
+    reason: force delete branch even if not merged
+    ask: true
+
+  # === DATABASE DESTRUCTIVE ===
+  # Commands that delete database data
+
+  - pattern: '\bDROP\s+(DATABASE|TABLE|SCHEMA)\b'
+    reason: DROP permanently deletes database objects
+
+  - pattern: '\bTRUNCATE\s+TABLE\b'
+    reason: TRUNCATE removes all rows instantly
+
+  - pattern: '\bDELETE\s+FROM\s+\w+\s*;'
+    reason: DELETE without WHERE clause removes all rows
+
+  # === CLOUD/INFRASTRUCTURE ===
+  # Commands that affect cloud resources
+
+  - pattern: '\bterraform\s+destroy\b'
+    reason: destroys all infrastructure - very dangerous
+    ask: true
+
+  - pattern: '\baws\s+s3\s+rm\b.*--recursive\b'
+    reason: recursively deletes S3 objects
+
+  - pattern: '\bkubectl\s+delete\s+namespace\b'
+    reason: deletes entire Kubernetes namespace and all resources
+
+# -----------------------------------------------------------------------------
+# ZERO ACCESS PATHS
+# -----------------------------------------------------------------------------
+# These paths are COMPLETELY off-limits.
+# Claude cannot read, write, edit, or delete these files.
+# Use for: API keys, SSH keys, cloud credentials, private keys
+# -----------------------------------------------------------------------------
+
+zeroAccessPaths:
+  # Environment files (contain API keys)
+  - ".env"
+  - ".env.*"
+  - "*.env"
+
+  # SSH keys (access to servers)
+  - "~/.ssh/"
+
+  # Cloud credentials
+  - "~/.aws/"
+  - "~/.gcp/"
+  - "~/.azure/"
+
+  # Private keys and certificates
+  - "*.pem"
+  - "*.key"
+  - "*.p12"
+
+  # Service account files
+  - "credentials.json"
+  - "service-account*.json"
+  - "*-adminsdk*.json"
+
+  # Package manager auth
+  - ".npmrc"
+  - ".pypirc"
+
+# -----------------------------------------------------------------------------
+# READ ONLY PATHS
+# -----------------------------------------------------------------------------
+# These paths can be READ but not MODIFIED.
+# Use for: System files, lock files, shell configs
+# -----------------------------------------------------------------------------
+
+readOnlyPaths:
+  # System directories
+  - "/etc/"
+
+  # Shell configuration
+  - "~/.bashrc"
+  - "~/.zshrc"
+  - "~/.bash_profile"
+
+  # Package lock files (modify via package manager only)
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "poetry.lock"
+  - "Cargo.lock"
+  - "*.lock"
+
+# -----------------------------------------------------------------------------
+# NO DELETE PATHS
+# -----------------------------------------------------------------------------
+# These paths can be READ and MODIFIED but not DELETED.
+# Use for: Important project files you don't want accidentally removed
+# -----------------------------------------------------------------------------
+
+noDeletePaths:
+  # Claude Code configuration
+  - ".claude/"
+
+  # Git repository
+  - ".git/"
+
+  # Important documentation
+  - "README.md"
+  - "LICENSE"
+  - "CHANGELOG.md"
+
+  # Git ignore (important for security)
+  - ".gitignore"

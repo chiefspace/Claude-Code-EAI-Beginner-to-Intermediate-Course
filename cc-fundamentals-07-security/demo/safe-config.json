@@ -1,0 +1,25 @@
+{
+  "app_name": "demo-application",
+  "version": "1.0.0",
+  "services": {
+    "anthropic": {
+      "model": "claude-sonnet-4-20250514",
+      "max_tokens": 4096
+    },
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "myapp"
+    },
+    "cache": {
+      "provider": "redis",
+      "ttl_seconds": 3600
+    }
+  },
+  "features": {
+    "dark_mode": true,
+    "notifications": true,
+    "max_upload_mb": 10
+  },
+  "note": "This config contains NO secrets - all credentials use environment variables"
+}

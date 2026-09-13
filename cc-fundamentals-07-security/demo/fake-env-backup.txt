@@ -1,0 +1,12 @@
+# .env backup - FAKE CREDENTIALS FOR DEMO ONLY
+# Someone accidentally committed their .env contents
+
+DATABASE_URL=postgres://admin:supersecret@localhost:5432/myapp
+ANTHROPIC_API_KEY=sk-ant-FAKE00-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+OPENAI_API_KEY=sk-FAKE9876543210abcdefghijklmnopqrstuvwxyz9876543210ab
+GITHUB_TOKEN=ghp_FAKE9876543210abcdefghijklmnopqrstuv
+AWS_ACCESS_KEY_ID=AKIAFAKE9876543210CD
+password="my-super-secret-password-1234"
+
+# This is what happens when someone does: cp .env .env.backup
+# and then forgets to add *.backup to .gitignore

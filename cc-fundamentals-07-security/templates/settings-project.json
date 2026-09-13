@@ -1,0 +1,47 @@
+{
+  "_comment": "Project-level Claude Code settings - Install to .claude/settings.json",
+  "_note": "These hooks protect only THIS project",
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "_description": "Block dangerous bash commands before execution",
+        "matcher": "Bash",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run .claude/hooks/damage-control/bash-tool-guard.py",
+          "timeout": 5000
+        }]
+      },
+      {
+        "_description": "Block edits to sensitive files",
+        "matcher": "Edit",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run .claude/hooks/damage-control/edit-tool-guard.py",
+          "timeout": 5000
+        }]
+      },
+      {
+        "_description": "Block writes to sensitive files",
+        "matcher": "Write",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run .claude/hooks/damage-control/write-tool-guard.py",
+          "timeout": 5000
+        }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "_description": "Detect exposed credentials in command output",
+        "matcher": "Bash",
+        "hooks": [{
+          "type": "command",
+          "command": "uv run .claude/hooks/damage-control/bash-output-validator.py",
+          "timeout": 5000
+        }]
+      }
+    ]
+  }
+}

@@ -7,8 +7,7 @@
 
 export class Counter {
   constructor() {
-    // BUG #2: Counter should start at 0, not 10
-    this.count = 10;  // ← INTENTIONAL BUG: Change to 0 to fix
+    this.count = 0;
   }
 
   increment() {

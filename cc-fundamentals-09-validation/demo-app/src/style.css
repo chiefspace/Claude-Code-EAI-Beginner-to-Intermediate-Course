@@ -95,11 +95,9 @@ button:active {
   background: #4b5563;
 }
 
-/* BUG #1: Increment button is hidden */
 .increment {
   background: #10b981;
   color: white;
-  display: none;  /* ← INTENTIONAL BUG: Remove this line to fix */
 }
 
 .increment:hover {

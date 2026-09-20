@@ -24,14 +24,12 @@ function reverse(str) {
 
 /**
  * Count words in a string.
- * BUG: Splits on single space ' ' instead of /\s+/
- * This fails on multiple spaces, tabs, and leading/trailing whitespace.
  * @param {string} str
  * @returns {number}
  */
 function countWords(str) {
   if (!str || !str.trim()) return 0;
-  return str.split(' ').filter(w => w.length > 0).length;
+  return str.trim().split(/\s+/).filter(w => w.length > 0).length;
 }
 
 /**

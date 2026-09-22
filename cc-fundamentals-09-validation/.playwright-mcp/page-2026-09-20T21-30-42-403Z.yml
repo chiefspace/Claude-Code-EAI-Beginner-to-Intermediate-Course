@@ -1,0 +1,14 @@
+- generic [ref=e2]:
+  - heading "Counter Demo" [level=1] [ref=e3]
+  - paragraph [ref=e4]: Visual Validation with Playwright
+  - generic [ref=e5]:
+    - generic [ref=e6]: "10"
+    - generic [ref=e7]:
+      - button "−" [ref=e8] [cursor=pointer]
+      - button "Reset" [ref=e9] [cursor=pointer]
+  - generic [ref=e10]:
+    - paragraph [ref=e11]: This demo has intentional bugs for teaching visual validation.
+    - paragraph [ref=e12]:
+      - text: Run
+      - code [ref=e13]: /EA-demo-visual
+      - text: to see the agent fix them!

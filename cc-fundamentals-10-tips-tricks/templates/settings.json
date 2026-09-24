@@ -1,0 +1,7 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "powershell -ExecutionPolicy Bypass -File \"C:\\Users\\<YourUsername>\\.claude\\statusline.ps1\"",
+    "padding": 0
+  }
+}

@@ -17,7 +17,7 @@ Continuation of the earlier `/EA-prime` orientation session (see `001-2026-09-24
   - Added a Python example to the "Adjusting System Overhead" customization section
   - Verified the documented test command actually produces colored output
 - Committed the guide update: `533f642` "Document Mac/Linux statusline setup using the Python script"
-- Pushed both commits to `origin/main` (`chiefspace/Claude-Code-EAI-Beginner-to-Intermediate-Course`) - local and remote are in sync aside from `specs/`
+- Pushed both commits to `origin/main` (`chiefspace/Claude-Code-EAI-Beginner-to-Intermediate-Course`) - local and remote are in sync
 
 ## In Progress
 - Nothing actively in progress.
@@ -25,7 +25,6 @@ Continuation of the earlier `/EA-prime` orientation session (see `001-2026-09-24
 ## Next Steps
 1. No required next action - the open item from handoff 001 is resolved.
 2. Optional: if more platforms/shells get added later (e.g. a Bash-only variant without Python), extend `statusline-setup.md` the same way.
-3. Optional: decide whether `specs/` itself should be tracked in this repo going forward, or stay local-only (it has been untracked/uncommitted across both sessions so far).
 
 ## Key Files
 - `templates/statusline-setup.md` - now documents both Windows (PowerShell) and Mac/Linux (Python) setup
@@ -34,6 +33,6 @@ Continuation of the earlier `/EA-prime` orientation session (see `001-2026-09-24
 - `templates/settings.json` / `templates/settings-python.json` - matching `~/.claude/settings.json` snippets for each platform
 
 ## Blockers / Notes
-- Git branch: `main`, in sync with `origin/main` as of commit `533f642`.
-- `specs/` remains untracked in this repo (same as noted in handoff 001) - not part of this session's scope, just carried forward as-is.
+- Git branch: `main`, in sync with `origin/main` (latest pushed: `5a052ff`, plus the commit that updated this note).
+- `specs/` (handoffs 001 and 002) is now tracked and pushed (`5a052ff` "Add session handoffs for module 10 work"), so future handoffs should be committed too.
 - This repo has its own `specs/handoffs/` convention, separate from the unrelated global `~/ea-handoffs/specs/handoffs/` collection used for other (local-AI/Fooocus) work - don't conflate the two.

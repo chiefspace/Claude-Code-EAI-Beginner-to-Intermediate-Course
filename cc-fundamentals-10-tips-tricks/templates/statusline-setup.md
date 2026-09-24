@@ -1,4 +1,4 @@
-# Custom Status Line Setup for Windows PowerShell
+# Custom Status Line Setup (Windows PowerShell & Mac/Linux)
 
 Always see your context usage at a glance with a custom status line.
 
@@ -25,7 +25,9 @@ Claude Code's reported usage doesn't include system overhead (tools, settings, M
 
 The second number is more accurate for predicting when you'll hit limits.
 
-## Setup Instructions
+## Setup Instructions (Windows PowerShell)
+
+On Mac or Linux? Skip to [Mac / Linux Setup (Python)](#mac--linux-setup-python).
 
 ### Step 1: Create the Script
 
@@ -193,6 +195,43 @@ Add to `~/.claude/settings.json`:
 
 Close and reopen Claude Code for changes to take effect.
 
+## Mac / Linux Setup (Python)
+
+`templates/statusline-setup.py` is a Python port of the PowerShell script with identical output. It needs only Python 3 (standard library) and `git`.
+
+### Step 1: Install the Script
+
+From this module's folder:
+
+```bash
+cp templates/statusline-setup.py ~/.claude/statusline.py
+chmod +x ~/.claude/statusline.py
+```
+
+### Step 2: Configure settings.json
+
+Add to `~/.claude/settings.json` (also in `templates/settings-python.json`):
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "python3 ~/.claude/statusline.py",
+    "padding": 0
+  }
+}
+```
+
+### Step 3: Test and Restart
+
+Pipe sample input through the script to confirm it works:
+
+```bash
+echo '{"model":{"display_name":"Opus"},"context_window":{"context_window_size":200000,"current_usage":{"input_tokens":50000}},"cost":{"total_duration_ms":60000},"workspace":{"current_dir":"'"$PWD"'"}}' | python3 ~/.claude/statusline.py
+```
+
+You should see a colored status line. Then restart Claude Code.
+
 ## Customization
 
 ### Adjusting System Overhead
@@ -201,6 +240,12 @@ Run `/context` to see your actual overhead, then adjust:
 
 ```powershell
 $systemOverhead = 30000  # Adjust based on your setup (25000-40000 typical)
+```
+
+In the Python version, edit the constant at the top of the file:
+
+```python
+SYSTEM_OVERHEAD = 30000  # Adjust based on your setup (25000-40000 typical)
 ```
 
 ### Color Thresholds
